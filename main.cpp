@@ -51,6 +51,7 @@ int main(int argc, char** argv) {
     //initialization of data complete
     //now to route
     
+    DrawNow();
     
     return 0;
 }

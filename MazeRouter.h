@@ -20,5 +20,7 @@ struct wireBlock {
     bool* wireTaken; //for as many tracks as defined by tracksPerChannel
 };
 
+int DrawNow();
+
 #endif	/* MAZEROUTER_H */
 
