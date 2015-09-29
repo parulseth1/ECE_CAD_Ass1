@@ -9,6 +9,7 @@
 #include <iostream>
 #include "Parser.h"
 #include "MazeRouter.h"
+#include "graphics.h"
 #define FILENAME "/home/parul/NetBeansProjects/MazeRouter/cct1.txt"
 using namespace std;
 
@@ -17,6 +18,7 @@ wireBlock **wb1;
 /*
  * 
  */
+int DrawNow();
 int main(int argc, char** argv) {
     
     //Parse the input files
@@ -51,7 +53,10 @@ int main(int argc, char** argv) {
     //initialization of data complete
     //now to route
     
+    int x;
     DrawNow();
+    
+    std::cin>>x;
     
     return 0;
 }

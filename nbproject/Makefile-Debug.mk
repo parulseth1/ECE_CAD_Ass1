@@ -45,7 +45,7 @@ CFLAGS=
 
 # CC Compiler Flags
 CCFLAGS=
-CXXFLAGS=
+CXXFLAGS= g++ graphics.cpp -std=c++11 -g -Wall -Wextra -pedantic -DX11  -I/usr/include/freetype2 -o EXEC -lX11 -lXft -lfontconfignclude/freetype2 -o EXEC -lX11 -lXft
 
 # Fortran Compiler Flags
 FFLAGS=
@@ -54,7 +54,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=
+LDLIBSOPTIONS= -lX11 -lXft -lfontconfig 
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
