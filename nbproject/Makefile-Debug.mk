@@ -35,8 +35,10 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/Drawing.o \
+	${OBJECTDIR}/DrawingRoutes.o \
+	${OBJECTDIR}/MazeRouter.o \
 	${OBJECTDIR}/Parser.o \
+	${OBJECTDIR}/graphics.o \
 	${OBJECTDIR}/main.o
 
 
@@ -44,8 +46,8 @@ OBJECTFILES= \
 CFLAGS=
 
 # CC Compiler Flags
-CCFLAGS=
-CXXFLAGS= g++ graphics.cpp -std=c++11 -g -Wall -Wextra -pedantic -DX11  -I/usr/include/freetype2 -o EXEC -lX11 -lXft -lfontconfignclude/freetype2 -o EXEC -lX11 -lXft
+CCFLAGS=-Wall -Wextra -pedantic -DX11 -std=c++11 -I/usr/include/freetype2
+CXXFLAGS=-Wall -Wextra -pedantic -DX11 -std=c++11 -I/usr/include/freetype2
 
 # Fortran Compiler Flags
 FFLAGS=
@@ -54,7 +56,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS= -lX11 -lXft -lfontconfig 
+LDLIBSOPTIONS=
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -62,17 +64,27 @@ LDLIBSOPTIONS= -lX11 -lXft -lfontconfig
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/mazerouter: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/mazerouter ${OBJECTFILES} ${LDLIBSOPTIONS}
+	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/mazerouter ${OBJECTFILES} ${LDLIBSOPTIONS} -lX11 -lXft -lfontconfig
 
-${OBJECTDIR}/Drawing.o: Drawing.cpp 
+${OBJECTDIR}/DrawingRoutes.o: DrawingRoutes.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Drawing.o Drawing.cpp
+	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/DrawingRoutes.o DrawingRoutes.cpp
+
+${OBJECTDIR}/MazeRouter.o: MazeRouter.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/MazeRouter.o MazeRouter.cpp
 
 ${OBJECTDIR}/Parser.o: Parser.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Parser.o Parser.cpp
+
+${OBJECTDIR}/graphics.o: graphics.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/graphics.o graphics.cpp
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}

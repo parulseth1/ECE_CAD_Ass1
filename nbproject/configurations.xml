@@ -6,6 +6,8 @@
                    projectFiles="true">
       <itemPath>MazeRouter.h</itemPath>
       <itemPath>Parser.h</itemPath>
+      <itemPath>easygl_constants.h</itemPath>
+      <itemPath>graphics.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -15,7 +17,9 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
-      <itemPath>Drawing.cpp</itemPath>
+      <itemPath>DrawingRoutes.cpp</itemPath>
+      <itemPath>MazeRouter.cpp</itemPath>
+      <itemPath>graphics.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -39,14 +43,28 @@
         <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
       <compileType>
+        <ccTool>
+          <commandLine>-Wall -Wextra -pedantic -DX11 -std=c++11 -I/usr/include/freetype2</commandLine>
+        </ccTool>
+        <linkerTool>
+          <commandLine>-lX11 -lXft -lfontconfig</commandLine>
+        </linkerTool>
       </compileType>
-      <item path="Drawing.cpp" ex="false" tool="0" flavor2="0">
+      <item path="DrawingRoutes.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="MazeRouter.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="MazeRouter.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Parser.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Parser.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="easygl_constants.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="graphics.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="graphics.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -71,13 +89,21 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
-      <item path="Drawing.cpp" ex="false" tool="0" flavor2="0">
+      <item path="DrawingRoutes.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="MazeRouter.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="MazeRouter.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Parser.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Parser.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="easygl_constants.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="graphics.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="graphics.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
