@@ -22,7 +22,7 @@ wireBlock **wb1;
  * 
  */
 
-int InitDataStructure();
+int InitDataStructure(int gridSize, int tracksPerChannel);
 
 int main(int argc, char** argv) {
     
@@ -40,11 +40,26 @@ int main(int argc, char** argv) {
     //for each connection, in the file do:
     for (int i = 0; i < numConn; i++) {
         //1. figure out which wireblock we are connected to
+        
+        point SourceWB = getCurrentWireBlock(track[i].From, track[i].pin_From);
+        point TargetWB = getCurrentWireBlock(track[i].To, track[i].pin_To);
+        
+//        //for every track in a wire block, do:
+//        for (int j = 0; j < tracksPerChannel; j++){
+//            if (wb1[SourceWB.i][SourceWB.j].wireTaken[j] == false){
+//                int ret = propagate();
+//            }
+//        }
+        
+        vector<point> listOfPotentialWireBlocks;
+        listOfPotentialWireBlocks.push_back(SourceWB);
+        
+        int retval = doPropagate(listOfPotentialWireBlocks, TargetWB, tracksPerChannel, wb1);
+        
+        
+        
+        
     }
-    
-    
-    
-    point currentWireBlock = getCurrentWireBlock();
    
     DrawNow();
     

@@ -5,8 +5,13 @@
  * Created on September 26, 2015, 5:48 PM
  */
 
+
+
 #ifndef MAZEROUTER_H
 #define	MAZEROUTER_H
+
+#include <vector>
+using namespace std;
 
 #define SWITCH_BOX 1
 #define WIRE_BLOCK 2
@@ -18,7 +23,7 @@ extern "C" {
 #ifdef	__cplusplus
 }
 #endif
-
+extern in wireblockGridsize;
 struct point {
     int i;
     int j;
@@ -38,7 +43,8 @@ struct wireBlock {
 };
 
 int DrawNow();
-int getCurrentWireBlock(point LB, int pin);
+point getCurrentWireBlock(point LB, int pin);
+int doPropagate(vector<point> , point, int , wireBlock**);
 
 #endif	/* MAZEROUTER_H */
 
