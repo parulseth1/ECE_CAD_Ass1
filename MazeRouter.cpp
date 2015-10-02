@@ -38,7 +38,7 @@ int doPropagate(vector<point> list, point Target, int tracksPerChannel, wireBloc
     vector<point> potentialList;
     
     for (int i = 0; i < list.size(); i++){
-        for (int j = 0; j < tracks; j++){
+        for (int j = 0; j < tracksPerChannel; j++){
             if (wb1[list[i].i][list[i].j].wireTaken[j] == false){
                 //means this wire isnt taken, stuff can we be done with it.
                 //now to get list of potential wire blocks that we can connect to

@@ -23,7 +23,8 @@ extern "C" {
 #ifdef	__cplusplus
 }
 #endif
-extern in wireblockGridsize;
+extern int wireBlockGridSize;
+
 struct point {
     int i;
     int j;
@@ -40,7 +41,9 @@ struct tracks {
 struct wireBlock {
     bool* wireTaken; //for as many tracks as defined by tracksPerChannel
     int cellMode; //switch box or wire block
-};
+};;
+
+extern wireBlock** wb1;
 
 int DrawNow();
 point getCurrentWireBlock(point LB, int pin);
