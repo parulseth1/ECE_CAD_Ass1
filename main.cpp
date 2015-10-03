@@ -49,7 +49,7 @@ int main(int argc, char** argv) {
         for (int j = 0; j < tracksPerChannel; j++){
 		    vector<point> listOfPotentialWireBlocks;
 		    listOfPotentialWireBlocks.push_back(SourceWB);
-		    
+		    wb1[SourceWB.i][SourceWB.j].iteration[j] = 0;
 		    int retval = doPropagate(listOfPotentialWireBlocks, TargetWB, tracksPerChannel, wb1, 1, j);
                     if(retval == MATCH_FOUND){
                         vector<point>* possibleRoute;
@@ -88,6 +88,7 @@ int InitDataStructure(int gridSize, int tracksPerChannel)
                 wb1[i][j].cellMode =WIRE_BLOCK;
                 for (int k = 0; k < tracksPerChannel; k++){
                     wb1[i][j].wireTaken[k] = false;
+                    wb1[i][j].iteration[k] = -1;
 
                 }
             }
