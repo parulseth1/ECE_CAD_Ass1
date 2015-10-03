@@ -55,7 +55,12 @@ int main(int argc, char** argv) {
 		    listOfPotentialWireBlocks.push_back(SourceWB);
 		    wb1[SourceWB.i][SourceWB.j].iteration[j] = 0;
 		    int retval = doPropagate(listOfPotentialWireBlocks, TargetWB, tracksPerChannel, wb1, 1, j);
-		   	//cout<<"do Propagate returns with : "<<retval<<endl;
+		    
+                    if(retval == MATCH_FOUND){
+                        vector<point>* possibleRoute;
+                        int Val = doTrace(listOfPotentialWireBlocks, TargetWB, wb1, possibleRoute);
+                    }
+
 	    }
         
         
