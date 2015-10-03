@@ -13,6 +13,9 @@
 #include <vector>
 using namespace std;
 
+#define DEAD_END -2
+#define MATCH_FOUND 123
+
 #define SWITCH_BOX 1
 #define WIRE_BLOCK 2
 
@@ -48,7 +51,7 @@ extern wireBlock** wb1;
 
 int DrawNow();
 point getCurrentWireBlock(point LB, int pin);
-int doPropagate(vector<point> , point, int , wireBlock**, int);
+int doPropagate(vector<point> , point, int , wireBlock**, int, int);
 
 #endif	/* MAZEROUTER_H */
 
