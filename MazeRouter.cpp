@@ -62,6 +62,7 @@ int doPropagate(vector<point> list, point Target, int tracksPerChannel, wireBloc
     return retVal;
 }
 
+
 point getListOfPotentialWireBlocks(point WB, wireBlock** wb1, int track, vector<point>* returnList, int iteration, point Target){
 	point retPoint = makePoint(-1, -1);
     point considerBox;
@@ -240,5 +241,145 @@ point getListOfPotentialWireBlocks(point WB, wireBlock** wb1, int track, vector<
 	
     return retPoint;
 }   
+
+int doTrace(vector<point> PotentialList, point Target, wireBlock** wb1, vector<point>* possibleRoute){
+    point TargetBox = Target;
+    point considerBox;
+    // to get the boxes it can connect to and at the same time to get if they are the one with the
+    // next iteration number.
+    for(int a = PotentialList.size(); a>0; a++){
+        top:
+        if(TargetBox.i%2 == 0 && TargetBox.j%2 == 1){ //for all 'vertical' wire blocks
+            //box1
+            considerBox = makePoint(TargetBox.i-1, TargetBox.j+1);
+            if (wb1[TargetBox.i][TargetBox.j].iteration -1 == wb1[considerBox.i][considerBox.j].iteration){
+                possibleRoute->push_back(considerBox);
+                TargetBox = considerBox;
+                if(wb1[TargetBox.i][TargetBox.j].iteration == 0){
+                    return PATH_MADE;
+                }
+                goto top;
+            }
+        
+            //box2
+            considerBox = makePoint(TargetBox.i-1, TargetBox.j-1);
+            if (wb1[TargetBox.i][TargetBox.j].iteration -1 == wb1[considerBox.i][considerBox.j].iteration){
+                possibleRoute-> push_back(considerBox);
+                TargetBox = considerBox;
+                if(wb1[TargetBox.i][TargetBox.j].iteration == 0){
+                    return PATH_MADE;
+                }
+                goto top;
+            }  
+             //box3
+            considerBox = makePoint(TargetBox.i, TargetBox.j-2);
+            if (wb1[TargetBox.i][TargetBox.j].iteration -1 == wb1[considerBox.i][considerBox.j].iteration){
+                possibleRoute-> push_back(considerBox);
+                TargetBox = considerBox;
+                if(wb1[TargetBox.i][TargetBox.j].iteration == 0){
+                    return PATH_MADE;
+                }
+                goto top;
+            }  
+            //box4
+            considerBox = makePoint(TargetBox.i+1, TargetBox.j-1);
+            if (wb1[TargetBox.i][TargetBox.j].iteration -1 == wb1[considerBox.i][considerBox.j].iteration){
+                possibleRoute-> push_back(considerBox);
+                TargetBox = considerBox;
+                if(wb1[TargetBox.i][TargetBox.j].iteration == 0){
+                    return PATH_MADE;
+                }
+                goto top;
+            }  
+            //box5
+            considerBox = makePoint(TargetBox.i+1, TargetBox.j+1);
+            if (wb1[TargetBox.i][TargetBox.j].iteration -1 == wb1[considerBox.i][considerBox.j].iteration){
+                possibleRoute-> push_back(considerBox);
+                TargetBox = considerBox;
+                if(wb1[TargetBox.i][TargetBox.j].iteration == 0){
+                    return PATH_MADE;
+                }
+                goto top;
+            }   
+            //box2
+            considerBox = makePoint(TargetBox.i, TargetBox.j+2);
+            if (wb1[TargetBox.i][TargetBox.j].iteration -1 == wb1[considerBox.i][considerBox.j].iteration){
+                possibleRoute-> push_back(considerBox);
+                TargetBox = considerBox;
+                if(wb1[TargetBox.i][TargetBox.j].iteration == 0){
+                    return PATH_MADE;
+                }
+                goto top;
+            }  
+        }
+        
+        
+        if(TargetBox.i%2 == 0 && TargetBox.j%2 == 1){ //for all 'horizontal' wire blocks
+                //box1
+                considerBox = makePoint(TargetBox.i-1, TargetBox.j+1);
+                if (wb1[TargetBox.i][TargetBox.j].iteration -1 == wb1[considerBox.i][considerBox.j].iteration){
+                    possibleRoute-> push_back(considerBox);
+                    TargetBox = considerBox;
+                    if(wb1[TargetBox.i][TargetBox.j].iteration == 0){
+                        return PATH_MADE;
+                    }
+                    goto top;
+                }
+
+                //box2
+                considerBox = makePoint(TargetBox.i-1, TargetBox.j-1);
+                if (wb1[TargetBox.i][TargetBox.j].iteration -1 == wb1[considerBox.i][considerBox.j].iteration){
+                    possibleRoute-> push_back(considerBox);
+                    TargetBox = considerBox;
+                    if(wb1[TargetBox.i][TargetBox.j].iteration == 0){
+                        return PATH_MADE;
+                    }
+                    goto top;
+                }  
+                 //box3
+                considerBox = makePoint(TargetBox.i-2, TargetBox.j);
+                if (wb1[TargetBox.i][TargetBox.j].iteration -1 == wb1[considerBox.i][considerBox.j].iteration){
+                    possibleRoute-> push_back(considerBox);
+                    TargetBox = considerBox;
+                    if(wb1[TargetBox.i][TargetBox.j].iteration == 0){
+                        return PATH_MADE;
+                    }
+                    goto top;
+                }  
+                //box4
+                considerBox = makePoint(TargetBox.i+1, TargetBox.j-1);
+                if (wb1[TargetBox.i][TargetBox.j].iteration -1 == wb1[considerBox.i][considerBox.j].iteration){
+                    possibleRoute-> push_back(considerBox);
+                    TargetBox = considerBox;
+                    if(wb1[TargetBox.i][TargetBox.j].iteration == 0){
+                        return PATH_MADE;
+                    }
+                    goto top;
+                }   
+                //box5
+                considerBox = makePoint(TargetBox.i+1, TargetBox.j+1);
+                if (wb1[TargetBox.i][TargetBox.j].iteration -1 == wb1[considerBox.i][considerBox.j].iteration){
+                    possibleRoute-> push_back(considerBox);
+                    TargetBox = considerBox;
+                    if(wb1[TargetBox.i][TargetBox.j].iteration == 0){
+                        return PATH_MADE;
+                    }
+                    goto top;
+                }   
+                //box2
+                considerBox = makePoint(TargetBox.i+2, TargetBox.j);
+                if (wb1[TargetBox.i][TargetBox.j].iteration -1 == wb1[considerBox.i][considerBox.j].iteration){
+                    possibleRoute -> push_back(considerBox);
+                    TargetBox = considerBox;
+                    if(wb1[TargetBox.i][TargetBox.j].iteration == 0){
+                        return PATH_MADE;
+                    }
+                    goto top;
+                }  
+        }
+    }   
+    
+    
+}
 
 
