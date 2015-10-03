@@ -54,7 +54,7 @@ int main(int argc, char** argv) {
         vector<point> listOfPotentialWireBlocks;
         listOfPotentialWireBlocks.push_back(SourceWB);
         
-        int retval = doPropagate(listOfPotentialWireBlocks, TargetWB, tracksPerChannel, wb1);
+        int retval = doPropagate(listOfPotentialWireBlocks, TargetWB, tracksPerChannel, wb1, 0);
         
         
         
@@ -92,10 +92,12 @@ int InitDataStructure(int gridSize, int tracksPerChannel)
             }
             else if (i%2==1 && j%2 == 0){
                 wb1[i][j].wireTaken = new bool[tracksPerChannel];
-                wb1[i][j].cellMode =WIRE_BLOCK;
+                wb1[i][j].iteration = new int [tracksPerChannel];
+                wb1[i][j].cellMode = WIRE_BLOCK;
                 for (int k = 0; k < tracksPerChannel; k++){
                     wb1[i][j].wireTaken[k] = false;
-
+					 wb1[i][j].iteration[k] = -1; //these blocks are un-initialized
+ 
                 }
             }
             else{
