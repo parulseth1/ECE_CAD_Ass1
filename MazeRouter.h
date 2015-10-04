@@ -50,7 +50,7 @@ struct wireBlock {
 
 extern wireBlock** wb1;
 
-int DrawNow();
+int DrawNow(int, int);
 point getCurrentWireBlock(point LB, int pin);
 int doPropagate(vector<point> , point, int , wireBlock**, int, int);
 int doTrace(vector<point>, point, wireBlock**,vector<point>*);

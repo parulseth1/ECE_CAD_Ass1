@@ -68,7 +68,7 @@ int main(int argc, char** argv) {
         
     }
    
-    DrawNow();
+    DrawNow(wireBlockGridSize, tracksPerChannel);
     
     return 0;
 }

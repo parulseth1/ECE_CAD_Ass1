@@ -6,8 +6,8 @@ using namespace std;
 
 int DrawNow()
 {
-    cout<<"Hello Graphics\n";
-    init_graphics("Drawing1", WHITE);
+    cout<<"Hello Graphkdksnfics\n";
+    init_graphics("MazeRouter", WHITE);
     int a;
     std::cin>>a;
     set_visible_world(0, 1000, 1000, 0);
