@@ -1,5 +1,6 @@
 
 #include "MazeRouter.h"
+#include <iostream>
 
 point makePoint(int i, int j){
     point retVal;
@@ -75,6 +76,7 @@ point getListOfPotentialWireBlocks(point WB, wireBlock** wb1, int track, vector<
 				//check that the iteration of the block we are considering, is -1, i.e. its un-initialized
 				if (wb1[considerBox.i][considerBox.j].wireTaken[track] == -1) {
 					wb1[considerBox.i][considerBox.j].wireTaken[track] = iteration;
+                                        std::cout<<"%d  %d"<<considerBox.i<<considerBox.j;
 		        	returnList->push_back(considerBox);
 		        }
 		    }

@@ -15,7 +15,7 @@ using namespace std;
 
 #define DEAD_END -2
 #define MATCH_FOUND 123
-#define PATH_MADE 1
+#define PATH_MADE 234
 
 #define SWITCH_BOX 1
 #define WIRE_BLOCK 2
@@ -50,7 +50,7 @@ struct wireBlock {
 
 extern wireBlock** wb1;
 
-int DrawNow();
+int DrawNow(int, int);
 point getCurrentWireBlock(point LB, int pin);
 int doPropagate(vector<point> , point, int , wireBlock**, int, int);
 int doTrace(vector<point>, point, wireBlock**,vector<point>*);
