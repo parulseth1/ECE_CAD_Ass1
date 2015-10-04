@@ -15,7 +15,7 @@ using namespace std;
 
 #define DEAD_END -2
 #define MATCH_FOUND 123
-#define PATH_MADE 1
+#define PATH_MADE 234
 
 #define SWITCH_BOX 1
 #define WIRE_BLOCK 2
