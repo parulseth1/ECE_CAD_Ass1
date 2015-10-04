@@ -10,7 +10,7 @@
 #include "Parser.h"
 #include "MazeRouter.h"
 #include "graphics.h"
-#define FILENAME "/home/parul/NetBeansProjects/MazeRouter/cct1.txt"
+#define FILENAME "/home/parul/Downloads/cct1.txt"
 using namespace std;
 
 int logicBoxGridSize;
@@ -32,7 +32,11 @@ int main(int argc, char** argv) {
     int numConn = doParse(FILENAME, &gridSize, &tracksPerChannel, &track);
     if (numConn < 1) exit(1);
     
+    cout <<"File reading complete"<<endl;
+    
     InitDataStructure(gridSize, tracksPerChannel);
+    
+  	cout<<"initialization complete"<<endl;
     
     //initialization of data complete
     
@@ -51,10 +55,12 @@ int main(int argc, char** argv) {
 		    listOfPotentialWireBlocks.push_back(SourceWB);
 		    wb1[SourceWB.i][SourceWB.j].iteration[j] = 0;
 		    int retval = doPropagate(listOfPotentialWireBlocks, TargetWB, tracksPerChannel, wb1, 1, j);
+
                     if(retval == MATCH_FOUND){
                         vector<point>* possibleRoute;
                         int Val = doTrace(listOfPotentialWireBlocks, TargetWB, wb1, possibleRoute);
                     }
+
 	    }
         
         
@@ -86,6 +92,7 @@ int InitDataStructure(int gridSize, int tracksPerChannel)
 
                 wb1[i][j].wireTaken = new bool[tracksPerChannel];
                 wb1[i][j].cellMode =WIRE_BLOCK;
+                wb1[i][j].iteration = new int[tracksPerChannel];
                 for (int k = 0; k < tracksPerChannel; k++){
                     wb1[i][j].wireTaken[k] = false;
                     wb1[i][j].iteration[k] = -1;
