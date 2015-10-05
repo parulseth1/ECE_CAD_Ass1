@@ -12,7 +12,7 @@
 #include "graphics.h"
 
 #include <limits.h>
-#define FILENAME "/home/aliakbareski-2/ECE_CAD_A1/cct1.txt"
+#define FILENAME "/home/parul/Downloads/cct1.txt"
 
 using namespace std;
 
@@ -46,7 +46,7 @@ int main(int argc, char** argv) {
     
     //now to route
     //for each connection, in the file do:
-    for (int i = 0; i < numConn; i++) {
+    for (int i = 0; i < 1; i++) {
         //1. figure out which wireblock we are connected to
         
         point SourceWB = getCurrentWireBlock(track[i].From, track[i].pin_From);
@@ -55,35 +55,36 @@ int main(int argc, char** argv) {
 		//for every track in a wireblock, we shall route
         
         for (int j = 0; j < tracksPerChannel; j++){
-		    vector<point> listOfPotentialWireBlocks;
-		    listOfPotentialWireBlocks.push_back(SourceWB);
-		    wb1[SourceWB.i][SourceWB.j].iteration[j] = 0;
-                    //cout<<"doing the route thing"<<endl;
-                    //cout<<tracksPerChannel<<endl;
-		    int retval = doPropagate(listOfPotentialWireBlocks, TargetWB, tracksPerChannel, wb1, 1, j);
-                    for(int a = 0;a< listOfPotentialWireBlocks.size();a++){
-                    cout<<listOfPotentialWireBlocks[a].i<<listOfPotentialWireBlocks[a].j<<endl;}
+            vector<point> listOfPotentialWireBlocks;
+            listOfPotentialWireBlocks.push_back(SourceWB);
+            wb1[SourceWB.i][SourceWB.j].iteration[j] = 0;
+            //cout<<"doing the route thing"<<endl;
+            //cout<<tracksPerChannel<<endl;
+            int retval = doPropagate(listOfPotentialWireBlocks, TargetWB, tracksPerChannel, wb1, 1, j);
+            //for(int a = 0;a< listOfPotentialWireBlocks.size();a++){
+            //cout<<listOfPotentialWireBlocks[a].i<<listOfPotentialWireBlocks[a].j<<endl;}
 
-
-                    if(retval == MATCH_FOUND){
-                        vector<point>* possibleRoute;
-                        cout<<"match found";
-                        int Val = doTrace(listOfPotentialWireBlocks, TargetWB, wb1, possibleRoute);
-                        
-                    }
-
-		    
-		    
+            cout<<"going to check match found";
             if(retval == MATCH_FOUND){
-                vector<point>* possibleRoute;
-                int Val = doTrace(listOfPotentialWireBlocks, TargetWB, wb1, possibleRoute);
+                vector<point>* possibleRoute = new vector<point>;
+                cout<<"match found"<<endl;
+                int Val = doTrace(j, TargetWB, wb1, possibleRoute);
+                cout<<"Wire:"<<j<<endl;
+                cout<<"pR size:"<<(*possibleRoute).size()<<endl;
+                for (int x = 0; x < (*possibleRoute).size(); x++){
+                    cout << (*possibleRoute)[x].i << "::"<<(*possibleRoute)[x].j<<endl;
+                }
+                
+
             }
 
 
-	    }
+        }  
         
         
     }
+        
+    
 
 #ifdef ROUTING
     vector<point> shortestRoute;

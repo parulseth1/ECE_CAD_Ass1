@@ -32,11 +32,11 @@ extern "C" {
 
 extern int wireBlockGridSize;
 
+
 struct point {
     int i;
     int j;
 };
-
 struct tracks {
     point From;
     int pin_From;
@@ -56,7 +56,7 @@ extern wireBlock** wb1;
 int DrawNow(int, int, int, vector<point>);
 point getCurrentWireBlock(point LB, int pin);
 int doPropagate(vector<point> , point, int , wireBlock**, int, int);
-int doTrace(vector<point>, point, wireBlock**,vector<point>*);
+int doTrace(int, point, wireBlock**,vector<point>*);
 
 #endif	/* MAZEROUTER_H */
 
