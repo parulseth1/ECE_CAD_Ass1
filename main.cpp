@@ -54,12 +54,17 @@ int main(int argc, char** argv) {
 		    vector<point> listOfPotentialWireBlocks;
 		    listOfPotentialWireBlocks.push_back(SourceWB);
 		    wb1[SourceWB.i][SourceWB.j].iteration[j] = 0;
+                    cout<<"doing the route thing"<<endl;
+                    //cout<<tracksPerChannel<<endl;
 		    int retval = doPropagate(listOfPotentialWireBlocks, TargetWB, tracksPerChannel, wb1, 1, j);
+                    for(int a = 0;a< listOfPotentialWireBlocks.size();a++){
+                    cout<<listOfPotentialWireBlocks[a].i<<listOfPotentialWireBlocks[a].j;}
 
 
                     if(retval == MATCH_FOUND){
                         vector<point>* possibleRoute;
                         int Val = doTrace(listOfPotentialWireBlocks, TargetWB, wb1, possibleRoute);
+                        //cout<<possibleRoute;
                     }
 
 		    
