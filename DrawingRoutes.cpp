@@ -21,8 +21,11 @@ int DrawNow(int _gridSize, int _tracksPerChannel)
     set_visible_world(0, 1000, 1000, 0);
     
     event_loop(NULL, NULL, NULL, drawscreen);  
-    
+    /*drawscreen();
+    flushinput();
+    cin.get();*/
     cout<<"END"<<endl;
+    
     return 0;
     
     
@@ -33,9 +36,9 @@ void drawscreen(){
 	set_draw_mode (DRAW_NORMAL);  // Should set this if your program does any XOR drawing in callbacks.
 	clearscreen();  /* Should precede drawing for all drawscreens */
 	
-	int BlockDim = 1000/(gridSize + 2);
-	int wireOffset = BlockDim/(tracksPerChannel + 1);
-	int rectOffset = BlockDim;
+	float BlockDim = 1000/(gridSize + 2);
+	float wireOffset = BlockDim/(tracksPerChannel + 1);
+	float rectOffset = BlockDim;
 	
 	setcolor(0, 0, 0);
 	drawrect(rectOffset-1, rectOffset-2, rectOffset+BlockDim*(gridSize)+1, rectOffset+BlockDim*(gridSize));
@@ -61,6 +64,7 @@ void drawscreen(){
 								
 			}
 			else if (i%2 == 0 && j%2 == 1){
+				//horizon
 				setcolor (0, 0, 0);
 				for (int h = 0; h < tracksPerChannel; h++){
 					drawline(rectOffset+BlockDim*i, rectOffset+BlockDim*j + wireOffset*(h+1), rectOffset+BlockDim*(i+1), rectOffset+ BlockDim*(j) + wireOffset*(h+1));
@@ -70,4 +74,6 @@ void drawscreen(){
 
 		}
 	}
+	
+	
 }

@@ -10,7 +10,7 @@
 #include "Parser.h"
 #include "MazeRouter.h"
 #include "graphics.h"
-#define FILENAME "/home/aliakbareski-2/ECE_CAD_A1/cct1.txt"
+#define FILENAME "/home/aliakbareski-2/ECE_CAD_A1/cct4.txt"
 using namespace std;
 
 int logicBoxGridSize;
@@ -63,8 +63,6 @@ int main(int argc, char** argv) {
             }
 
 	    }
-        
-        
         
         
     }
