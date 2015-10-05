@@ -10,6 +10,7 @@
 #include "Parser.h"
 #include "MazeRouter.h"
 #include "graphics.h"
+#include <limits.h>
 #define FILENAME "/home/aliakbareski-2/ECE_CAD_A1/cct1.txt"
 using namespace std;
 
@@ -23,6 +24,7 @@ wireBlock **wb1;
  */
 
 int InitDataStructure(int gridSize, int tracksPerChannel);
+int getShortestRoute(vector<point>*, int, vector<point>*);
 
 int main(int argc, char** argv) {
     
@@ -66,8 +68,13 @@ int main(int argc, char** argv) {
         
         
     }
+#ifdef ROUTING
+    vector<point> shortestRoute;
+    int shortestRoutePin = getShortestRoute(possibleRoute, tracksPerChannel, &shortestRoute);
+    if (shortestRoutePin < 0){cout<<"something went wrong";return 1;}
     
-    
+    DrawNow(wireBlockGridSize, tracksPerChannel, shortestRoutePin, shortestRoute);
+#endif        
 
     return 0;
 }
@@ -114,4 +121,18 @@ int InitDataStructure(int gridSize, int tracksPerChannel)
             }
         }
     }
+}
+
+
+int getShortestRoute(vector<point>* possibleRoutes, int tracksPerChannel, vector<point>* shortestRoute){
+	int shortestPin = -1;
+	int shortestRouteLength = INT_MAX;
+	for (int i = 0; i < tracksPerChannel; i++){
+		if (possibleRoutes[i].size < shortestRouteLength){
+			shortestPin = i;
+			*shortestRoute = possibleRoutes[i];
+		}
+	}
+	
+	return shortestPin;	
 }
