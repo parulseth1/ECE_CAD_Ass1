@@ -27,6 +27,9 @@ extern "C" {
 #ifdef	__cplusplus
 }
 #endif
+
+//#define ROUTING
+
 extern int wireBlockGridSize;
 
 struct point {
@@ -50,7 +53,7 @@ struct wireBlock {
 
 extern wireBlock** wb1;
 
-int DrawNow(int, int);
+int DrawNow(int, int, int, vector<point>);
 point getCurrentWireBlock(point LB, int pin);
 int doPropagate(vector<point> , point, int , wireBlock**, int, int);
 int doTrace(vector<point>, point, wireBlock**,vector<point>*);
