@@ -143,7 +143,7 @@ int getShortestRoute(vector<point>* possibleRoutes, int tracksPerChannel, vector
 	int shortestPin = -1;
 	int shortestRouteLength = INT_MAX;
 	for (int i = 0; i < tracksPerChannel; i++){
-		if (possibleRoutes[i].size < shortestRouteLength){
+		if (possibleRoutes[i].size() < shortestRouteLength){
 			shortestPin = i;
 			*shortestRoute = possibleRoutes[i];
 		}
