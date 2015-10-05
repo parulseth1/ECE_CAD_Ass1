@@ -10,8 +10,10 @@
 #include "Parser.h"
 #include "MazeRouter.h"
 #include "graphics.h"
+
 #include <limits.h>
 #define FILENAME "/home/aliakbareski-2/ECE_CAD_A1/cct1.txt"
+
 using namespace std;
 
 int logicBoxGridSize;
@@ -56,7 +58,19 @@ int main(int argc, char** argv) {
 		    vector<point> listOfPotentialWireBlocks;
 		    listOfPotentialWireBlocks.push_back(SourceWB);
 		    wb1[SourceWB.i][SourceWB.j].iteration[j] = 0;
+                    cout<<"doing the route thing"<<endl;
+                    //cout<<tracksPerChannel<<endl;
 		    int retval = doPropagate(listOfPotentialWireBlocks, TargetWB, tracksPerChannel, wb1, 1, j);
+                    for(int a = 0;a< listOfPotentialWireBlocks.size();a++){
+                    cout<<listOfPotentialWireBlocks[a].i<<listOfPotentialWireBlocks[a].j;}
+
+
+                    if(retval == MATCH_FOUND){
+                        vector<point>* possibleRoute;
+                        int Val = doTrace(listOfPotentialWireBlocks, TargetWB, wb1, possibleRoute);
+                        //cout<<possibleRoute;
+                    }
+
 		    
 		    
             if(retval == MATCH_FOUND){
@@ -64,15 +78,16 @@ int main(int argc, char** argv) {
                 int Val = doTrace(listOfPotentialWireBlocks, TargetWB, wb1, possibleRoute);
             }
 
+
 	    }
         
         
     }
+
 #ifdef ROUTING
     vector<point> shortestRoute;
     int shortestRoutePin = getShortestRoute(possibleRoute, tracksPerChannel, &shortestRoute);
     if (shortestRoutePin < 0){cout<<"something went wrong";return 1;}
-    
     DrawNow(wireBlockGridSize, tracksPerChannel, shortestRoutePin, shortestRoute);
 #endif        
 

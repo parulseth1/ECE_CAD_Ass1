@@ -1,5 +1,6 @@
 
 #include "MazeRouter.h"
+#include <iostream>
 
 point makePoint(int i, int j){
     point retVal;
@@ -73,8 +74,9 @@ point getListOfPotentialWireBlocks(point WB, wireBlock** wb1, int track, vector<
 		    if (wb1[considerBox.i][considerBox.j].wireTaken[track] == false){
 		        //its available
 				//check that the iteration of the block we are considering, is -1, i.e. its un-initialized
-				if (wb1[considerBox.i][considerBox.j].wireTaken[track] == -1) {
-					wb1[considerBox.i][considerBox.j].wireTaken[track] = iteration;
+				if (wb1[considerBox.i][considerBox.j].iteration[track] == -1) {
+					wb1[considerBox.i][considerBox.j].iteration[track] = iteration;
+                                        std::cout<<considerBox.i<<considerBox.j;
 		        	returnList->push_back(considerBox);
 		        }
 		    }
@@ -86,8 +88,9 @@ point getListOfPotentialWireBlocks(point WB, wireBlock** wb1, int track, vector<
 		if (considerBox.i >= 0 && considerBox.i < wireBlockGridSize && considerBox.j >= 0 && considerBox.j < wireBlockGridSize){
 		    if (wb1[considerBox.i][considerBox.j].wireTaken[track] == false){
 		        //its available
-		        if (wb1[considerBox.i][considerBox.j].wireTaken[track] == -1) {
-					wb1[considerBox.i][considerBox.j].wireTaken[track] = iteration;
+		        if (wb1[considerBox.i][considerBox.j].iteration[track] == -1) {
+					wb1[considerBox.i][considerBox.j].iteration[track] = iteration;
+                                        std::cout<<considerBox.i<<considerBox.j;
 		        	returnList->push_back(considerBox);
 		        }
 		    }
@@ -99,8 +102,9 @@ point getListOfPotentialWireBlocks(point WB, wireBlock** wb1, int track, vector<
 		if (considerBox.i >= 0 && considerBox.i < wireBlockGridSize && considerBox.j >= 0 && considerBox.j < wireBlockGridSize){
 		    if (wb1[considerBox.i][considerBox.j].wireTaken[track] == false){
 		        //its available
-		        if (wb1[considerBox.i][considerBox.j].wireTaken[track] == -1) {
-					wb1[considerBox.i][considerBox.j].wireTaken[track] = iteration;
+		        if (wb1[considerBox.i][considerBox.j].iteration[track] == -1) {
+					wb1[considerBox.i][considerBox.j].iteration[track] = iteration;
+                                        std::cout<<considerBox.i<<considerBox.j;
 		        	returnList->push_back(considerBox);
 		        }
 		    }
@@ -111,8 +115,9 @@ point getListOfPotentialWireBlocks(point WB, wireBlock** wb1, int track, vector<
 		if (considerBox.i >= 0 && considerBox.i < wireBlockGridSize && considerBox.j >= 0 && considerBox.j < wireBlockGridSize){
 		    if (wb1[considerBox.i][considerBox.j].wireTaken[track] == false){
 		        //its available
-		        if (wb1[considerBox.i][considerBox.j].wireTaken[track] == -1) {
-					wb1[considerBox.i][considerBox.j].wireTaken[track] = iteration;
+		        if (wb1[considerBox.i][considerBox.j].iteration[track] == -1) {
+					wb1[considerBox.i][considerBox.j].iteration[track] = iteration;
+                                        std::cout<<considerBox.i<<considerBox.j;
 		        	returnList->push_back(considerBox);
 		        }
 		    }
@@ -125,8 +130,9 @@ point getListOfPotentialWireBlocks(point WB, wireBlock** wb1, int track, vector<
     if (considerBox.i >= 0 && considerBox.i < wireBlockGridSize && considerBox.j >= 0 && considerBox.j < wireBlockGridSize){
         if (wb1[considerBox.i][considerBox.j].wireTaken[track] == false){
             //its available
-            if (wb1[considerBox.i][considerBox.j].wireTaken[track] == -1) {
-				wb1[considerBox.i][considerBox.j].wireTaken[track] = iteration;
+            if (wb1[considerBox.i][considerBox.j].iteration[track] == -1) {
+				wb1[considerBox.i][considerBox.j].iteration[track] = iteration;
+                                std::cout<<considerBox.i<<considerBox.j;
             	returnList->push_back(considerBox);
             }
         }
@@ -138,8 +144,9 @@ point getListOfPotentialWireBlocks(point WB, wireBlock** wb1, int track, vector<
     if (considerBox.i >= 0 && considerBox.i < wireBlockGridSize && considerBox.j >= 0 && considerBox.j < wireBlockGridSize){
         if (wb1[considerBox.i][considerBox.j].wireTaken[track] == false){
             //its available
-            if (wb1[considerBox.i][considerBox.j].wireTaken[track] == -1) {
-				wb1[considerBox.i][considerBox.j].wireTaken[track] = iteration;
+            if (wb1[considerBox.i][considerBox.j].iteration[track] == -1) {
+				wb1[considerBox.i][considerBox.j].iteration[track] = iteration;
+                                std::cout<<considerBox.i<<considerBox.j;
             	returnList->push_back(considerBox);
             }
         }
@@ -152,8 +159,9 @@ point getListOfPotentialWireBlocks(point WB, wireBlock** wb1, int track, vector<
 		if (considerBox.i >= 0 && considerBox.i < wireBlockGridSize && considerBox.j >= 0 && considerBox.j < wireBlockGridSize){
 		    if (wb1[considerBox.i][considerBox.j].wireTaken[track] == false){
 		        //its available
-		        if (wb1[considerBox.i][considerBox.j].wireTaken[track] == -1) {
-					wb1[considerBox.i][considerBox.j].wireTaken[track] = iteration;
+		        if (wb1[considerBox.i][considerBox.j].iteration[track] == -1) {
+					wb1[considerBox.i][considerBox.j].iteration[track] = iteration;
+                                        std::cout<<considerBox.i<<considerBox.j;
 		        	returnList->push_back(considerBox);
 		        }
 		    }
@@ -165,8 +173,9 @@ point getListOfPotentialWireBlocks(point WB, wireBlock** wb1, int track, vector<
 		if (considerBox.i >= 0 && considerBox.i < wireBlockGridSize && considerBox.j >= 0 && considerBox.j < wireBlockGridSize){
 		    if (wb1[considerBox.i][considerBox.j].wireTaken[track] == false){
 		        //its available
-		        if (wb1[considerBox.i][considerBox.j].wireTaken[track] == -1) {
-					wb1[considerBox.i][considerBox.j].wireTaken[track] = iteration;
+		        if (wb1[considerBox.i][considerBox.j].iteration[track] == -1) {
+					wb1[considerBox.i][considerBox.j].iteration[track] = iteration;
+                                        std::cout<<considerBox.i<<considerBox.j;
 		        	returnList->push_back(considerBox);
 		        }
 		    }
@@ -178,8 +187,9 @@ point getListOfPotentialWireBlocks(point WB, wireBlock** wb1, int track, vector<
 		if (considerBox.i >= 0 && considerBox.i < wireBlockGridSize && considerBox.j >= 0 && considerBox.j < wireBlockGridSize){
 		    if (wb1[considerBox.i][considerBox.j].wireTaken[track] == false){
 		        //its available
-		        if (wb1[considerBox.i][considerBox.j].wireTaken[track] == -1) {
-					wb1[considerBox.i][considerBox.j].wireTaken[track] = iteration;
+		        if (wb1[considerBox.i][considerBox.j].iteration[track] == -1) {
+					wb1[considerBox.i][considerBox.j].iteration[track] = iteration;
+                                        std::cout<<considerBox.i<<considerBox.j;
 		        	returnList->push_back(considerBox);
 		        }
 		    }
@@ -190,8 +200,9 @@ point getListOfPotentialWireBlocks(point WB, wireBlock** wb1, int track, vector<
 		if (considerBox.i >= 0 && considerBox.i < wireBlockGridSize && considerBox.j >= 0 && considerBox.j < wireBlockGridSize){
 		    if (wb1[considerBox.i][considerBox.j].wireTaken[track] == false){
 		        //its available
-		        if (wb1[considerBox.i][considerBox.j].wireTaken[track] == -1) {
-					wb1[considerBox.i][considerBox.j].wireTaken[track] = iteration;
+		        if (wb1[considerBox.i][considerBox.j].iteration[track] == -1) {
+					wb1[considerBox.i][considerBox.j].iteration[track] = iteration;
+                                        std::cout<<considerBox.i<<considerBox.j;
 		        	returnList->push_back(considerBox);
 		        }
 		    }
@@ -203,8 +214,9 @@ point getListOfPotentialWireBlocks(point WB, wireBlock** wb1, int track, vector<
 		if (considerBox.i >= 0 && considerBox.i < wireBlockGridSize && considerBox.j >= 0 && considerBox.j < wireBlockGridSize){
 		    if (wb1[considerBox.i][considerBox.j].wireTaken[track] == false){
 		        //its available
-		        if (wb1[considerBox.i][considerBox.j].wireTaken[track] == -1) {
-					wb1[considerBox.i][considerBox.j].wireTaken[track] = iteration;
+		        if (wb1[considerBox.i][considerBox.j].iteration[track] == -1) {
+					wb1[considerBox.i][considerBox.j].iteration[track] = iteration;
+                                        std::cout<<considerBox.i<<considerBox.j;
 		        	returnList->push_back(considerBox);
 		        }
 		    }
@@ -216,8 +228,9 @@ point getListOfPotentialWireBlocks(point WB, wireBlock** wb1, int track, vector<
 		if (considerBox.i >= 0 && considerBox.i < wireBlockGridSize && considerBox.j >= 0 && considerBox.j < wireBlockGridSize){
 		    if (wb1[considerBox.i][considerBox.j].wireTaken[track] == false){
 		        //its available
-		        if (wb1[considerBox.i][considerBox.j].wireTaken[track] == -1) {
-					wb1[considerBox.i][considerBox.j].wireTaken[track] = iteration;
+		        if (wb1[considerBox.i][considerBox.j].iteration[track] == -1) {
+					wb1[considerBox.i][considerBox.j].iteration[track] = iteration;
+                                        std::cout<<considerBox.i<<considerBox.j;
 		        	returnList->push_back(considerBox);
 		        }
 		    }
