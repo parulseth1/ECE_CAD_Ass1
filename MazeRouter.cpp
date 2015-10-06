@@ -267,6 +267,7 @@ point getListOfPotentialWireBlocks(point WB, wireBlock** wb1, int track, vector<
 }   
 
 int doTrace(int track, point Target, wireBlock** wb1, vector<point>* possibleRoute){
+	possibleRoute->push_back(Target);
     point TargetBox = makePoint(Target.i, Target.j);
     point considerBox;
     // to get the boxes it can connect to and at the same time to get if they are the one with the

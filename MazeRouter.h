@@ -28,7 +28,7 @@ extern "C" {
 }
 #endif
 
-//#define ROUTING
+#define ROUTING
 
 extern int wireBlockGridSize;
 
@@ -57,6 +57,7 @@ int DrawNow(int, int, int, vector<point>);
 point getCurrentWireBlock(point LB, int pin);
 int doPropagate(vector<point> , point, int , wireBlock**, int, int);
 int doTrace(int, point, wireBlock**,vector<point>*);
+point makePoint(int i, int j);
 
 #endif	/* MAZEROUTER_H */
 

@@ -12,7 +12,7 @@
 #include "graphics.h"
 
 #include <limits.h>
-#define FILENAME "/home/parul/Downloads/cct1.txt"
+#define FILENAME "/home/aliakbareski-2/ECE_CAD_A1/cct1.txt"
 
 using namespace std;
 
@@ -41,6 +41,8 @@ int main(int argc, char** argv) {
     InitDataStructure(gridSize, tracksPerChannel);
     
   	cout<<"initialization complete"<<endl;
+  	
+  	vector<point>* possibleRoute = new vector<point>[tracksPerChannel];
     
     //initialization of data complete
     
@@ -51,6 +53,9 @@ int main(int argc, char** argv) {
         
         point SourceWB = getCurrentWireBlock(track[i].From, track[i].pin_From);
         point TargetWB = getCurrentWireBlock(track[i].To, track[i].pin_To);
+        
+        cout<<"Source : "<<SourceWB.i<<"::"<<SourceWB.j<<endl;
+        cout<<"Target : "<<TargetWB.i<<"::"<<TargetWB.j<<endl;
         
 		//for every track in a wireblock, we shall route
         
@@ -66,13 +71,13 @@ int main(int argc, char** argv) {
 
             cout<<"going to check match found";
             if(retval == MATCH_FOUND){
-                vector<point>* possibleRoute = new vector<point>;
+                
                 cout<<"match found"<<endl;
-                int Val = doTrace(j, TargetWB, wb1, possibleRoute);
+                int Val = doTrace(j, TargetWB, wb1, &possibleRoute[j]);
                 cout<<"Wire:"<<j<<endl;
                 cout<<"pR size:"<<(*possibleRoute).size()<<endl;
-                for (int x = 0; x < (*possibleRoute).size(); x++){
-                    cout << (*possibleRoute)[x].i << "::"<<(*possibleRoute)[x].j<<endl;
+                for (int x = 0; x < possibleRoute[j].size(); x++){
+                    cout << possibleRoute[j][x].i << "::"<<possibleRoute[j][x].j<<endl;
                 }
                 
 
@@ -147,6 +152,7 @@ int getShortestRoute(vector<point>* possibleRoutes, int tracksPerChannel, vector
 	for (int i = 0; i < tracksPerChannel; i++){
 		if (possibleRoutes[i].size() < shortestRouteLength){
 			shortestPin = i;
+			shortestRouteLength = possibleRoutes[i].size();
 			*shortestRoute = possibleRoutes[i];
 		}
 	}

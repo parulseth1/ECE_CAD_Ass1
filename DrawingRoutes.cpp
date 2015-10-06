@@ -2,6 +2,8 @@
 #include "graphics.h"
 #include "MazeRouter.h"
 #include <iostream>
+#include <stdlib.h>
+#include <cfloat>
 
 using namespace std;
 
@@ -10,6 +12,10 @@ int tracksPerChannel;
 int pin;
 vector<point> route;
 void drawscreen();
+
+point getLBCoords(int i, int j){
+	return makePoint((i-1)/2, (j-1)/2);
+}
 
 int DrawNow(int _gridSize, int _tracksPerChannel, int _pin, vector<point> _route)
 {
@@ -22,7 +28,7 @@ int DrawNow(int _gridSize, int _tracksPerChannel, int _pin, vector<point> _route
     
     init_graphics("MazeRouter", WHITE);
     
-    set_visible_world(0, 0, 1000, 1000);
+    set_visible_world(0, 0, 1100, 1100);
     
     event_loop(NULL, NULL, NULL, drawscreen);  
     /*drawscreen();
@@ -43,9 +49,17 @@ void drawscreen(){
 	float BlockDim = 1000/(gridSize + 2);
 	float wireOffset = BlockDim/(tracksPerChannel + 1);
 	float rectOffset = BlockDim;
+	float textOffset = BlockDim/2;
 	
-	setcolor(0, 0, 0);
-	drawrect(rectOffset-1, rectOffset-2, rectOffset+BlockDim*(gridSize)+1, rectOffset+BlockDim*(gridSize));
+	/*setcolor (184, 184, 184); //grey
+	drawrect(0, 0, 10, 10);
+	drawtext(20, 10);
+	setcolor (135, 206, 250);//lightblue
+	drawrect();
+	drawtext();*/
+	
+	//setcolor(0, 0, 0);
+	//drawrect(rectOffset-1, rectOffset-2, rectOffset+BlockDim*(gridSize)+1, rectOffset+BlockDim*(gridSize));
 	
 	for (int i = 0; i < gridSize; i++){
 		for (int j = 0; j  <gridSize; j++){
@@ -58,8 +72,14 @@ void drawscreen(){
 				//setcolor to lightblue
 				setcolor (135, 206, 250);
 				fillrect(rectOffset+BlockDim*i, rectOffset+BlockDim*j, rectOffset+BlockDim*(i+1), rectOffset+BlockDim*(j+1));	
+				setcolor(0, 0, 0);
+				point LBCoords = getLBCoords(i, j);
+				char buff[100];
+				sprintf(buff, "%d, %d", LBCoords.i, LBCoords.j);
+				drawtext(rectOffset+BlockDim*i + textOffset, rectOffset+BlockDim*j + textOffset, buff, FLT_MAX, FLT_MAX);
+				
 			}
-			else if (i%2 == 1 && j%2 == 0) {
+			else if (i%2 == 0 && j%2 == 1) {
 				//vertical lines
 				setcolor (0, 0, 0);
 				for (int v = 0; v < tracksPerChannel; v++){
@@ -67,7 +87,7 @@ void drawscreen(){
 				}
 								
 			}
-			else if (i%2 == 0 && j%2 == 1){
+			else if (i%2 == 1 && j%2 == 0){
 				//horizontal lines
 				setcolor (0, 0, 0);
 				for (int h = 0; h < tracksPerChannel; h++){
@@ -81,12 +101,14 @@ void drawscreen(){
 
 #ifdef ROUTING	
 	//now to draw the routes
+	//setcolor (rand()%255, rand()%255, rand()%255);
+	setcolor (255, 0, 0);
 	for (int r = 0; r < route.size(); r++){
-		if (route[r].i % 2 == 0 && route[r].j % 2 == 1){
+		if (route[r].i % 2 == 1 && route[r].j % 2 == 0){
 			//horizontal lines
 			drawline(rectOffset+BlockDim*route[r].i, rectOffset+BlockDim*route[r].j + wireOffset*(pin+1), rectOffset+BlockDim*(route[r].i+1), rectOffset + BlockDim*route[r].j + wireOffset*(pin+1));
 		}
-		if (route[r].i % 2 == 1 && route[r].j % 2 == 0){
+		if (route[r].i % 2 == 0 && route[r].j % 2 == 1){
 			//vertical lines
 			drawline(rectOffset+BlockDim*route[r].i + wireOffset*(pin+1), rectOffset+BlockDim*route[r].j, rectOffset+BlockDim*route[r].i + wireOffset*(pin+1), rectOffset+BlockDim*(route[r].j+1));
 		}
