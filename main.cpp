@@ -43,7 +43,9 @@ int main(int argc, char** argv) {
   	cout<<"initialization complete"<<endl;
     
     //initialization of data complete
-    
+    int MinSize = INT_MAX;
+    int Minsize_wireNumber = -1;
+    vector<point>* possibleRoute = new vector<point>;
     //now to route
     //for each connection, in the file do:
     for (int i = 0; i < 1; i++) {
@@ -63,13 +65,16 @@ int main(int argc, char** argv) {
             int retval = doPropagate(listOfPotentialWireBlocks, TargetWB, tracksPerChannel, wb1, 1, j);
             //for(int a = 0;a< listOfPotentialWireBlocks.size();a++){
             //cout<<listOfPotentialWireBlocks[a].i<<listOfPotentialWireBlocks[a].j<<endl;}
-
-            cout<<"going to check match found";
+            
+            //cout<<"going to check match found";
             if(retval == MATCH_FOUND){
-                vector<point>* possibleRoute = new vector<point>;
                 cout<<"match found"<<endl;
                 int Val = doTrace(j, TargetWB, wb1, possibleRoute);
                 cout<<"Wire:"<<j<<endl;
+                if(MinSize > (*possibleRoute).size()){
+                    MinSize = (*possibleRoute).size();
+                    Minsize_wireNumber = j;
+                }
                 cout<<"pR size:"<<(*possibleRoute).size()<<endl;
                 for (int x = 0; x < (*possibleRoute).size(); x++){
                     cout << (*possibleRoute)[x].i << "::"<<(*possibleRoute)[x].j<<endl;
@@ -79,20 +84,40 @@ int main(int argc, char** argv) {
             }
 
 
-        }  
-        
-        
-    }
+        } 
+       vector<point>* ShortestRoute = new vector<point>;
+       int val = doTrace(Minsize_wireNumber,TargetWB,wb1,ShortestRoute);
+       for(int a =0;a<MinSize; a++){
+           wb1[(*ShortestRoute)[a].i][(*ShortestRoute)[a].j].wireTaken[Minsize_wireNumber] = true;
+       }
+       
+       
         
     
+    }     
+        
+        
 
 #ifdef ROUTING
     vector<point> shortestRoute;
     int shortestRoutePin = getShortestRoute(possibleRoute, tracksPerChannel, &shortestRoute);
     if (shortestRoutePin < 0){cout<<"something went wrong";return 1;}
+    
+    //save this route somewhere for future connections to learn from :P
+    
     DrawNow(wireBlockGridSize, tracksPerChannel, shortestRoutePin, shortestRoute);
 #endif        
-
+    for(int i = 0; i< wireBlockGridSize; i++){
+        for(int j = 0; j<wireBlockGridSize; j++){
+            for(int x= 0;x<tracksPerChannel;x++ ){
+                if(wb1[i][j].wireTaken[x] == false){
+                    wb1[i][j].iteration[x] = -1;
+                }
+                    
+            }
+            
+        }
+    }
     return 0;
 }
 
