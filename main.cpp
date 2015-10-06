@@ -12,7 +12,7 @@
 #include "graphics.h"
 
 #include <limits.h>
-#define FILENAME "/home/parul/Downloads/cct1.txt"
+#define FILENAME "/home/parul/Downloads/cct4.txt"
 
 using namespace std;
 
@@ -33,6 +33,8 @@ int main(int argc, char** argv) {
     //Parse the input files
     int gridSize, tracksPerChannel;
     std::vector<tracks>track;
+    std::vector<vector<point>>  AllShortRoutes;
+    vector<int> AllShortWireNums;
     int numConn = doParse(FILENAME, &gridSize, &tracksPerChannel, &track);
     if (numConn < 1) exit(1);
     
@@ -40,19 +42,24 @@ int main(int argc, char** argv) {
     
     InitDataStructure(gridSize, tracksPerChannel);
     
-  	cout<<"initialization complete"<<endl;
+    cout<<"initialization complete"<<endl;
+
+    vector<point>* possibleRoute = new vector<point>[tracksPerChannel];
     
     //initialization of data complete
     int MinSize = INT_MAX;
     int Minsize_wireNumber = -1;
-    vector<point>* possibleRoute = new vector<point>;
+    vector<point> ShortestRoute;
     //now to route
     //for each connection, in the file do:
-    for (int i = 0; i < numConn; i++) {
+    for (int i = 0; i < 12; i++) {
         //1. figure out which wireblock we are connected to
         
         point SourceWB = getCurrentWireBlock(track[i].From, track[i].pin_From);
         point TargetWB = getCurrentWireBlock(track[i].To, track[i].pin_To);
+        
+        cout<<"Source : "<<SourceWB.i<<"::"<<SourceWB.j<<endl;
+        cout<<"Target : "<<TargetWB.i<<"::"<<TargetWB.j<<endl;
         
 		//for every track in a wireblock, we shall route
         
@@ -60,24 +67,28 @@ int main(int argc, char** argv) {
             vector<point> listOfPotentialWireBlocks;
             listOfPotentialWireBlocks.push_back(SourceWB);
             wb1[SourceWB.i][SourceWB.j].iteration[j] = 0;
-            //cout<<"doing the route thing"<<endl;
-            //cout<<tracksPerChannel<<endl;
+            cout<<"doing the route thing"<<endl;
+            cout<<tracksPerChannel<<endl;
             int retval = doPropagate(listOfPotentialWireBlocks, TargetWB, tracksPerChannel, wb1, 1, j);
-            //for(int a = 0;a< listOfPotentialWireBlocks.size();a++){
-            //cout<<listOfPotentialWireBlocks[a].i<<listOfPotentialWireBlocks[a].j<<endl;}
+            if (retval == DEAD_END){cout<<"DEAD_END";continue;}
+            for(int a = 0;a< listOfPotentialWireBlocks.size();a++){
+            cout<<listOfPotentialWireBlocks[a].i<<listOfPotentialWireBlocks[a].j<<endl;}
             
-            //cout<<"going to check match found";
+            cout<<"going to check match found";
             if(retval == MATCH_FOUND){
+                
                 cout<<"match found"<<endl;
-                int Val = doTrace(j, TargetWB, wb1, possibleRoute);
+                int Val = doTrace(j, TargetWB, wb1, &possibleRoute[j]);
+                if (Val != PATH_MADE){continue;}
                 cout<<"Wire:"<<j<<endl;
-                if(MinSize > (*possibleRoute).size()){
-                    MinSize = (*possibleRoute).size();
+                if(MinSize > possibleRoute[j].size()){
+                    MinSize = possibleRoute[j].size();
                     Minsize_wireNumber = j;
+                    ShortestRoute = possibleRoute[j];
                 }
-                cout<<"pR size:"<<(*possibleRoute).size()<<endl;
-                for (int x = 0; x < (*possibleRoute).size(); x++){
-                    cout << (*possibleRoute)[x].i << "::"<<(*possibleRoute)[x].j<<endl;
+                cout<<"pR size:"<<possibleRoute[j].size()<<endl;
+                for (int x = 0; x < possibleRoute[j].size(); x++){
+                    cout << possibleRoute[j][x].i << "::"<<possibleRoute[j][x].j<<endl;
                 }
                 
 
@@ -85,38 +96,47 @@ int main(int argc, char** argv) {
 
 
         } 
-       vector<point>* ShortestRoute = new vector<point>;
-       int val = doTrace(Minsize_wireNumber,TargetWB,wb1,ShortestRoute);
+//       
+       cout<<"shortestRoute on wire "<<Minsize_wireNumber<<":"<<endl; 
        for(int a =0;a<MinSize; a++){
-           wb1[(*ShortestRoute)[a].i][(*ShortestRoute)[a].j].wireTaken[Minsize_wireNumber] = true;
+           wb1[ShortestRoute[a].i][ShortestRoute[a].j].wireTaken[Minsize_wireNumber] = true;
+           cout<<ShortestRoute[a].i<<"::"<<ShortestRoute[a].j<<endl;
        }
        
-       
-      for(int i = 0; i< wireBlockGridSize; i++){
-        for(int j = 0; j<wireBlockGridSize; j++){
-            for(int x= 0;x<tracksPerChannel;x++ ){
-                if(wb1[i][j].wireTaken[x] == false){
-                    wb1[i][j].iteration[x] = -1;
+       //refresh the entire wire-grid 
+      for(int i1 = 0; i1< wireBlockGridSize; i1++){
+        for(int j1 = 0; j1<wireBlockGridSize; j1++){
+            for(int x1= 0;x1<tracksPerChannel;x1++ ){
+                
+                if (i1%2 != j1%2){
+                    if(wb1[i1][j1].wireTaken[x1] == false){
+                        wb1[i1][j1].iteration[x1] = -1;
+                    }
                 }
                     
             }
             
         }
     }  
+    #ifdef ROUTING
+    //save this route somewhere for future connections to learn from :P
+       AllShortRoutes.push_back(ShortestRoute);
+       AllShortWireNums.push_back(Minsize_wireNumber);
+    //DrawNow(wireBlockGridSize, tracksPerChannel, Minsize_wireNumber, ShortestRoute);    
+    #endif
+
+    //clear up data
+    ShortestRoute.clear();
+    MinSize = INT_MAX;
+    for (int v1 = 0; v1 < tracksPerChannel; v1++){
+        possibleRoute[v1].clear();
+    }
+    
+    
     
     }     
         
-        
-
-#ifdef ROUTING
-    vector<point> shortestRoute;
-    int shortestRoutePin = getShortestRoute(possibleRoute, tracksPerChannel, &shortestRoute);
-    if (shortestRoutePin < 0){cout<<"something went wrong";return 1;}
-    
-    //save this route somewhere for future connections to learn from :P
-    
-    DrawNow(wireBlockGridSize, tracksPerChannel, shortestRoutePin, shortestRoute);
-#endif        
+     DrawNow(wireBlockGridSize, tracksPerChannel, AllShortWireNums, AllShortRoutes);    
     
     return 0;
 }
@@ -153,7 +173,7 @@ int InitDataStructure(int gridSize, int tracksPerChannel)
                 wb1[i][j].cellMode = WIRE_BLOCK;
                 for (int k = 0; k < tracksPerChannel; k++){
                     wb1[i][j].wireTaken[k] = false;
-					 wb1[i][j].iteration[k] = -1; //these blocks are un-initialized
+                    wb1[i][j].iteration[k] = -1; //these blocks are un-initialized
  
                 }
             }
@@ -172,6 +192,7 @@ int getShortestRoute(vector<point>* possibleRoutes, int tracksPerChannel, vector
 	for (int i = 0; i < tracksPerChannel; i++){
 		if (possibleRoutes[i].size() < shortestRouteLength){
 			shortestPin = i;
+			shortestRouteLength = possibleRoutes[i].size();
 			*shortestRoute = possibleRoutes[i];
 		}
 	}

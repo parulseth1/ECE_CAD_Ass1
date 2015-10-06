@@ -28,7 +28,7 @@ extern "C" {
 }
 #endif
 
-//#define ROUTING
+#define ROUTING
 
 extern int wireBlockGridSize;
 
@@ -48,15 +48,16 @@ struct tracks {
 struct wireBlock {
     bool* wireTaken; //for as many tracks as defined by tracksPerChannel
     int cellMode; //switch box or wire block
-	int* iteration;
+    int* iteration;
 };
 
 extern wireBlock** wb1;
 
-int DrawNow(int, int, int, vector<point>);
+int DrawNow(int, int, vector<int>, vector<vector<point>>);
 point getCurrentWireBlock(point LB, int pin);
 int doPropagate(vector<point> , point, int , wireBlock**, int, int);
 int doTrace(int, point, wireBlock**,vector<point>*);
+point makePoint(int i, int j);
 
 #endif	/* MAZEROUTER_H */
 
