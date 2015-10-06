@@ -48,7 +48,7 @@ int main(int argc, char** argv) {
     vector<point>* possibleRoute = new vector<point>;
     //now to route
     //for each connection, in the file do:
-    for (int i = 0; i < 1; i++) {
+    for (int i = 0; i < numConn; i++) {
         //1. figure out which wireblock we are connected to
         
         point SourceWB = getCurrentWireBlock(track[i].From, track[i].pin_From);
@@ -92,7 +92,17 @@ int main(int argc, char** argv) {
        }
        
        
-        
+      for(int i = 0; i< wireBlockGridSize; i++){
+        for(int j = 0; j<wireBlockGridSize; j++){
+            for(int x= 0;x<tracksPerChannel;x++ ){
+                if(wb1[i][j].wireTaken[x] == false){
+                    wb1[i][j].iteration[x] = -1;
+                }
+                    
+            }
+            
+        }
+    }  
     
     }     
         
@@ -107,17 +117,7 @@ int main(int argc, char** argv) {
     
     DrawNow(wireBlockGridSize, tracksPerChannel, shortestRoutePin, shortestRoute);
 #endif        
-    for(int i = 0; i< wireBlockGridSize; i++){
-        for(int j = 0; j<wireBlockGridSize; j++){
-            for(int x= 0;x<tracksPerChannel;x++ ){
-                if(wb1[i][j].wireTaken[x] == false){
-                    wb1[i][j].iteration[x] = -1;
-                }
-                    
-            }
-            
-        }
-    }
+    
     return 0;
 }
 
