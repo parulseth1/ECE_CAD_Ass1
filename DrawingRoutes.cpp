@@ -110,7 +110,7 @@ void drawscreen(){
 	//now to draw the routes
 	//setcolor (rand()%255, rand()%255, rand()%255);
         //a:
-        setlinewidth (2);
+        setlinewidth (3);
         for (int s = 0; s < route.size(); s++){
             int r = 25 + rand()%200;
             int g = 25 + rand()%200;
@@ -128,6 +128,7 @@ void drawscreen(){
                     }
             }
         }
+        setlinewidth(1);
 #endif
 	
 }

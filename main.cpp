@@ -10,9 +10,10 @@
 #include "Parser.h"
 #include "MazeRouter.h"
 #include "graphics.h"
+#include <string.h>
 
 #include <limits.h>
-#define FILENAME "/home/parul/Downloads/cct4.txt"
+//#define FILENAME "/home/aliakbareski-2/ECE_CAD_A1/cct1.txt"
 
 using namespace std;
 
@@ -29,6 +30,28 @@ int InitDataStructure(int gridSize, int tracksPerChannel);
 int getShortestRoute(vector<point>*, int, vector<point>*);
 
 int main(int argc, char** argv) {
+	
+	if (argc < 3){
+		cout<<"Usage : ./mazerouter -u <File name>"<<endl;
+		return 1;
+	}
+	int caseDirection;
+	if (strcmp(argv[1], "-u") == 0){
+		//unidirectional case
+		caseDirection = 1;
+	}
+	else if (strcmp(argv[1], "-b") == 0){
+		//bidirectional case
+		caseDirection = 2;
+	}
+	else {
+		cout<<"wrong argument"<<endl;
+		return 1;
+	}
+	
+	char* FILENAME = new char[strlen(argv[2]) + 1];
+	strcpy(FILENAME, argv[2]);
+	cout<<FILENAME<<endl;
     
     //Parse the input files
     int gridSize, tracksPerChannel;
@@ -52,7 +75,7 @@ int main(int argc, char** argv) {
     vector<point> ShortestRoute;
     //now to route
     //for each connection, in the file do:
-    for (int i = 0; i < 12; i++) {
+    for (int i = 0; i < 1; i++) {
         //1. figure out which wireblock we are connected to
         
         point SourceWB = getCurrentWireBlock(track[i].From, track[i].pin_From);
@@ -98,6 +121,7 @@ int main(int argc, char** argv) {
         } 
 //       
        cout<<"shortestRoute on wire "<<Minsize_wireNumber<<":"<<endl; 
+       if (Minsize_wireNumber < 0){continue;}
        for(int a =0;a<MinSize; a++){
            wb1[ShortestRoute[a].i][ShortestRoute[a].j].wireTaken[Minsize_wireNumber] = true;
            cout<<ShortestRoute[a].i<<"::"<<ShortestRoute[a].j<<endl;

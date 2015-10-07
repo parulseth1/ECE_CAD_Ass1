@@ -13,9 +13,10 @@ int doParse(char* FileName, int* grid, int* tracksPerChannel, vector<tracks> *tr
      * this function returns the total no of connections made, or -1 if the file could not be opened
      * if the file is not formatted correctly, undefined behavior will occur
      */
+    cout<<FileName<<endl;
     ifstream fin;
     tracks temp;
-    fin.open(FileName);
+    fin.open(FileName); //why wont you open?
     if (!fin.is_open()){
         cout<<"File could not be opened"<<endl;
         return -1;

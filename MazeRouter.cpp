@@ -11,16 +11,16 @@ point makePoint(int i, int j) {
 
 point getCurrentWireBlock(point Block, int pin) {
     point retVal;
-    if (pin == 1) {
+    if (pin == 2) {
         retVal = makePoint((2 * Block.i) + 1 + 1, ((2 * Block.j) + 1));
     }
-    if (pin == 2) {
+    if (pin == 3) {
         retVal = makePoint((2 * Block.i) + 1, ((2 * Block.j) + 1 + 1));
     }
-    if (pin == 3) {
+    if (pin == 4) {
         retVal = makePoint((2 * Block.i) + 1 - 1, ((2 * Block.j) + 1));
     }
-    if (pin == 4) {
+    if (pin == 1) {
         retVal = makePoint((2 * Block.i) + 1, ((2 * Block.j) + 1 - 1));
     }
     return retVal;
@@ -94,7 +94,6 @@ point getListOfPotentialWireBlocks(point WB, wireBlock** wb1, int track, vector<
         }
 
         //box2
-        //    considerBox - makePoint();
         considerBox = makePoint(WB.i - 1, WB.j - 1);
         if (considerBox.i >= 0 && considerBox.i < wireBlockGridSize && considerBox.j >= 0 && considerBox.j < wireBlockGridSize) {
             if (wb1[considerBox.i][considerBox.j].wireTaken[track] == false) {
@@ -108,7 +107,6 @@ point getListOfPotentialWireBlocks(point WB, wireBlock** wb1, int track, vector<
         }
 
         //box3
-        //    considerBox - makePoint();
         considerBox = makePoint(WB.i - 2, WB.j);
         if (considerBox.i >= 0 && considerBox.i < wireBlockGridSize && considerBox.j >= 0 && considerBox.j < wireBlockGridSize) {
             if (wb1[considerBox.i][considerBox.j].wireTaken[track] == false) {
@@ -121,7 +119,6 @@ point getListOfPotentialWireBlocks(point WB, wireBlock** wb1, int track, vector<
             }
         }
         //box4
-        //    considerBox - makePoint();
         considerBox = makePoint(WB.i + 1, WB.j + 1);
         if (considerBox.i >= 0 && considerBox.i < wireBlockGridSize && considerBox.j >= 0 && considerBox.j < wireBlockGridSize) {
             if (wb1[considerBox.i][considerBox.j].wireTaken[track] == false) {
@@ -136,7 +133,6 @@ point getListOfPotentialWireBlocks(point WB, wireBlock** wb1, int track, vector<
     }
 
     //box5
-    //    considerBox - makePoint();
     considerBox = makePoint(WB.i + 1, WB.j - 1);
     if (considerBox.i >= 0 && considerBox.i < wireBlockGridSize && considerBox.j >= 0 && considerBox.j < wireBlockGridSize) {
         if (wb1[considerBox.i][considerBox.j].wireTaken[track] == false) {
@@ -150,8 +146,20 @@ point getListOfPotentialWireBlocks(point WB, wireBlock** wb1, int track, vector<
     }
 
     //box6
-    //    considerBox - makePoint();
     considerBox = makePoint(WB.i + 2, WB.j);
+    if (considerBox.i >= 0 && considerBox.i < wireBlockGridSize && considerBox.j >= 0 && considerBox.j < wireBlockGridSize) {
+        if (wb1[considerBox.i][considerBox.j].wireTaken[track] == false) {
+            //its available
+            if (wb1[considerBox.i][considerBox.j].iteration[track] == -1) {
+                wb1[considerBox.i][considerBox.j].iteration[track] = iteration;
+                std::cout << considerBox.i << considerBox.j << endl;
+                returnList->push_back(considerBox);
+            }
+        }
+    }
+    
+    //box7
+    considerBox = makePoint(WB.i, WB.j);
     if (considerBox.i >= 0 && considerBox.i < wireBlockGridSize && considerBox.j >= 0 && considerBox.j < wireBlockGridSize) {
         if (wb1[considerBox.i][considerBox.j].wireTaken[track] == false) {
             //its available
@@ -179,7 +187,6 @@ point getListOfPotentialWireBlocks(point WB, wireBlock** wb1, int track, vector<
         }
 
         //box2
-        //    considerBox - makePoint();
         considerBox = makePoint(WB.i - 1, WB.j - 1);
         if (considerBox.i >= 0 && considerBox.i < wireBlockGridSize && considerBox.j >= 0 && considerBox.j < wireBlockGridSize) {
             if (wb1[considerBox.i][considerBox.j].wireTaken[track] == false) {
@@ -193,7 +200,6 @@ point getListOfPotentialWireBlocks(point WB, wireBlock** wb1, int track, vector<
         }
 
         //box3
-        //    considerBox - makePoint();
         considerBox = makePoint(WB.i, WB.j - 2);
         if (considerBox.i >= 0 && considerBox.i < wireBlockGridSize && considerBox.j >= 0 && considerBox.j < wireBlockGridSize) {
             if (wb1[considerBox.i][considerBox.j].wireTaken[track] == false) {
@@ -206,7 +212,6 @@ point getListOfPotentialWireBlocks(point WB, wireBlock** wb1, int track, vector<
             }
         }
         //box4
-        //    considerBox - makePoint();
         considerBox = makePoint(WB.i + 1, WB.j + 1);
         if (considerBox.i >= 0 && considerBox.i < wireBlockGridSize && considerBox.j >= 0 && considerBox.j < wireBlockGridSize) {
             if (wb1[considerBox.i][considerBox.j].wireTaken[track] == false) {
@@ -220,7 +225,6 @@ point getListOfPotentialWireBlocks(point WB, wireBlock** wb1, int track, vector<
         }
 
         //box5
-        //    considerBox - makePoint();
         considerBox = makePoint(WB.i + 1, WB.j - 1);
         if (considerBox.i >= 0 && considerBox.i < wireBlockGridSize && considerBox.j >= 0 && considerBox.j < wireBlockGridSize) {
             if (wb1[considerBox.i][considerBox.j].wireTaken[track] == false) {
@@ -234,8 +238,20 @@ point getListOfPotentialWireBlocks(point WB, wireBlock** wb1, int track, vector<
         }
 
         //box6
-        //    considerBox - makePoint();
         considerBox = makePoint(WB.i, WB.j + 2);
+        if (considerBox.i >= 0 && considerBox.i < wireBlockGridSize && considerBox.j >= 0 && considerBox.j < wireBlockGridSize) {
+            if (wb1[considerBox.i][considerBox.j].wireTaken[track] == false) {
+                //its available
+                if (wb1[considerBox.i][considerBox.j].iteration[track] == -1) {
+                    wb1[considerBox.i][considerBox.j].iteration[track] = iteration;
+                    std::cout << considerBox.i << considerBox.j << endl;
+                    returnList->push_back(considerBox);
+                }
+            }
+        }
+        
+        //box7
+        considerBox = makePoint(WB.i, WB.j);
         if (considerBox.i >= 0 && considerBox.i < wireBlockGridSize && considerBox.j >= 0 && considerBox.j < wireBlockGridSize) {
             if (wb1[considerBox.i][considerBox.j].wireTaken[track] == false) {
                 //its available
@@ -248,7 +264,7 @@ point getListOfPotentialWireBlocks(point WB, wireBlock** wb1, int track, vector<
         }
     }
 
-    //just before returning, we msut check if any of the potential lists match the target if they do we return that instead of -1, -1
+    //just before returning, we must check if any of the potential lists match the target if they do we return that instead of -1, -1
 
     for (int g = 0; g < returnList->size(); g++) {
         if ((*returnList)[g].i == Target.i && (*returnList)[g].j == Target.j) {
@@ -368,6 +384,22 @@ int doTrace(int track, point Target, wireBlock** wb1, vector<point>* possibleRou
                 }
 
             }
+            
+            //box7
+            considerBox = makePoint(TargetBox.i, TargetBox.j);
+            if (considerBox.i >= 0 && considerBox.i < wireBlockGridSize && considerBox.j >= 0 && considerBox.j < wireBlockGridSize) {
+                if (wb1[TargetBox.i][TargetBox.j].iteration[track] - 1 == wb1[considerBox.i][considerBox.j].iteration[track]) {
+                    if (wb1[considerBox.i][considerBox.j].wireTaken[track] == false) {
+                        possibleRoute->push_back(considerBox);
+                        TargetBox = makePoint(considerBox.i, considerBox.j);
+                        if (wb1[TargetBox.i][TargetBox.j].iteration[track] == 0) {
+                            return PATH_MADE;
+                        }
+                    }
+                    continue;
+                }
+
+            }
 
         }
 
@@ -448,6 +480,21 @@ int doTrace(int track, point Target, wireBlock** wb1, vector<point>* possibleRou
             }
             //box6
             considerBox = makePoint(TargetBox.i + 2, TargetBox.j);
+            if (considerBox.i >= 0 && considerBox.i < wireBlockGridSize && considerBox.j >= 0 && considerBox.j < wireBlockGridSize) {
+                if (wb1[TargetBox.i][TargetBox.j].iteration[track] - 1 == wb1[considerBox.i][considerBox.j].iteration[track]) {
+                    if (wb1[considerBox.i][considerBox.j].wireTaken[track] == false) {
+                        possibleRoute->push_back(considerBox);
+                        TargetBox = makePoint(considerBox.i, considerBox.j);
+                        if (wb1[TargetBox.i][TargetBox.j].iteration[track] == 0) {
+                            return PATH_MADE;
+                        }
+                    }
+                    continue;
+                }
+            }
+            
+            //box7
+            considerBox = makePoint(TargetBox.i, TargetBox.j);
             if (considerBox.i >= 0 && considerBox.i < wireBlockGridSize && considerBox.j >= 0 && considerBox.j < wireBlockGridSize) {
                 if (wb1[TargetBox.i][TargetBox.j].iteration[track] - 1 == wb1[considerBox.i][considerBox.j].iteration[track]) {
                     if (wb1[considerBox.i][considerBox.j].wireTaken[track] == false) {
