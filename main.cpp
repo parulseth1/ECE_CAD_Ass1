@@ -12,7 +12,7 @@
 #include "graphics.h"
 
 #include <limits.h>
-#define FILENAME "/home/parul/Downloads/cct4.txt"
+#define FILENAME "/home/parul/Downloads/cct1.txt"
 
 using namespace std;
 
@@ -36,6 +36,7 @@ int main(int argc, char** argv) {
     std::vector<vector<point>>  AllShortRoutes;
     vector<int> AllShortWireNums;
     int numConn = doParse(FILENAME, &gridSize, &tracksPerChannel, &track);
+   tracksPerChannel = 6;
     if (numConn < 1) exit(1);
     
     cout <<"File reading complete"<<endl;
