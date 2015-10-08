@@ -84,6 +84,7 @@ point getListOfPotentialWireBlocks(point WB, wireBlock** wb1, int track, vector<
     
     if (Target.i == WB.i && Target.j == WB.j){
     	//WB is target
+    	cout<<"special case"<<endl;
     	returnList->push_back(WB);
     	return WB;
     }
@@ -254,6 +255,7 @@ point getListOfPotentialWireBlocks(point WB, wireBlock** wb1, int track, vector<
         if ((*returnList)[g].i == Target.i && (*returnList)[g].j == Target.j) {
             //one of the potential blocks is actually matching the target.
             retPoint = makePoint(Target.i, Target.j);
+            cout<<Target.i<<"::"<<Target.j<<endl;
 
         }
     }
@@ -283,7 +285,7 @@ int doTrace(int track, point Target, wireBlock** wb1, vector<point>* possibleRou
     point considerBox;
     // to get the boxes it can connect to and at the same time to get if they are the one with the
     // next iteration number.
-    for (int a = wb1[Target.i][Target.j].iteration[track]; a > 0; a--) { 
+    for (int a = wb1[Target.i][Target.j].iteration[track]; a>=0; a--) { 
         cout << a << endl;
         //        top:
         if (TargetBox.i % 2 == 0 && TargetBox.j % 2 == 1) { //for all 'vertical' wire blocks

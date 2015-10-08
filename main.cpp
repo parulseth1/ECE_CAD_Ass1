@@ -129,7 +129,7 @@ int main(int argc, char** argv) {
            cout<<ShortestRoute[a].i<<"::"<<ShortestRoute[a].j<<endl;
        }
        
-       //refresh the entire wire-grid -- segmentation fault
+       //refresh the entire wire-grid
        cout<<"refreshing"<<endl;
       for(int i1 = 0; i1< wireBlockGridSize; i1++){
         for(int j1 = 0; j1<wireBlockGridSize; j1++){
