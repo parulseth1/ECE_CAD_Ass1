@@ -66,13 +66,14 @@ int main(int argc, char** argv) {
     InitDataStructure(gridSize, tracksPerChannel);
     
     cout<<"initialization complete"<<endl;
-
+    //tracksPerChannel = 2;
     vector<point>* possibleRoute = new vector<point>[tracksPerChannel];
     
     //initialization of data complete
     int MinSize = INT_MAX;
     int Minsize_wireNumber = -1;
     vector<point> ShortestRoute;
+    int seg_count = 0;
     //now to route
     //for each connection, in the file do:
     for (int i = 0; i < numConn; i++) {
@@ -127,6 +128,7 @@ int main(int argc, char** argv) {
        for(int a =0;a<MinSize; a++){
            wb1[ShortestRoute[a].i][ShortestRoute[a].j].wireTaken[Minsize_wireNumber] = true;
            cout<<ShortestRoute[a].i<<"::"<<ShortestRoute[a].j<<endl;
+           seg_count = seg_count+1;
        }
        
        //refresh the entire wire-grid
@@ -162,7 +164,7 @@ int main(int argc, char** argv) {
     
     
     }     
-        
+    cout<<"segments used ="<<seg_count;
      DrawNow(wireBlockGridSize, tracksPerChannel, AllShortWireNums, AllShortRoutes);    
     
     return 0;

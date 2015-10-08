@@ -141,7 +141,7 @@ point getListOfPotentialWireBlocks(point WB, wireBlock** wb1, int track, vector<
                 }
             }
         }
-    }
+    
 
     //box5
     considerBox = makePoint(WB.i + 1, WB.j - 1);
@@ -167,6 +167,7 @@ point getListOfPotentialWireBlocks(point WB, wireBlock** wb1, int track, vector<
                 returnList->push_back(considerBox);
             }
         }
+    }
     }
 
     if (WB.i % 2 == 0 && WB.j % 2 == 1) { //for all 'vertical' wire blocks
