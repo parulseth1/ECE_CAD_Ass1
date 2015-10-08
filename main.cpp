@@ -75,14 +75,14 @@ int main(int argc, char** argv) {
     vector<point> ShortestRoute;
     //now to route
     //for each connection, in the file do:
-    for (int i = 0; i < 1; i++) {
+    for (int i = 0; i < numConn; i++) {
         //1. figure out which wireblock we are connected to
         
         point SourceWB = getCurrentWireBlock(track[i].From, track[i].pin_From);
         point TargetWB = getCurrentWireBlock(track[i].To, track[i].pin_To);
         
-        cout<<"Source : "<<SourceWB.i<<"::"<<SourceWB.j<<endl;
-        cout<<"Target : "<<TargetWB.i<<"::"<<TargetWB.j<<endl;
+        cout<<"Source block : "<<SourceWB.i<<"::"<<SourceWB.j<<endl;
+        cout<<"Target block : "<<TargetWB.i<<"::"<<TargetWB.j<<endl;
         
 		//for every track in a wireblock, we shall route
         
@@ -91,18 +91,19 @@ int main(int argc, char** argv) {
             listOfPotentialWireBlocks.push_back(SourceWB);
             wb1[SourceWB.i][SourceWB.j].iteration[j] = 0;
             cout<<"doing the route thing"<<endl;
-            cout<<tracksPerChannel<<endl;
+            cout<<j<<endl;
             int retval = doPropagate(listOfPotentialWireBlocks, TargetWB, tracksPerChannel, wb1, 1, j);
             if (retval == DEAD_END){cout<<"DEAD_END";continue;}
-            for(int a = 0;a< listOfPotentialWireBlocks.size();a++){
-            cout<<listOfPotentialWireBlocks[a].i<<listOfPotentialWireBlocks[a].j<<endl;}
+            /*for(int a = 0;a< listOfPotentialWireBlocks.size();a++){
+            	cout<<listOfPotentialWireBlocks[a].i<<listOfPotentialWireBlocks[a].j<<endl;
+            }*/
             
             cout<<"going to check match found";
             if(retval == MATCH_FOUND){
                 
                 cout<<"match found"<<endl;
                 int Val = doTrace(j, TargetWB, wb1, &possibleRoute[j]);
-                if (Val != PATH_MADE){continue;}
+                if (Val != PATH_MADE){cout<<"doTrace didnt work"<<endl;continue;}
                 cout<<"Wire:"<<j<<endl;
                 if(MinSize > possibleRoute[j].size()){
                     MinSize = possibleRoute[j].size();
@@ -121,17 +122,18 @@ int main(int argc, char** argv) {
         } 
 //       
        cout<<"shortestRoute on wire "<<Minsize_wireNumber<<":"<<endl; 
+       cout<<MinSize<<endl;
        if (Minsize_wireNumber < 0){continue;}
        for(int a =0;a<MinSize; a++){
            wb1[ShortestRoute[a].i][ShortestRoute[a].j].wireTaken[Minsize_wireNumber] = true;
            cout<<ShortestRoute[a].i<<"::"<<ShortestRoute[a].j<<endl;
        }
        
-       //refresh the entire wire-grid 
+       //refresh the entire wire-grid -- segmentation fault
+       cout<<"refreshing"<<endl;
       for(int i1 = 0; i1< wireBlockGridSize; i1++){
         for(int j1 = 0; j1<wireBlockGridSize; j1++){
             for(int x1= 0;x1<tracksPerChannel;x1++ ){
-                
                 if (i1%2 != j1%2){
                     if(wb1[i1][j1].wireTaken[x1] == false){
                         wb1[i1][j1].iteration[x1] = -1;
@@ -142,6 +144,7 @@ int main(int argc, char** argv) {
             
         }
     }  
+    cout<<"refresh done"<<endl;
     #ifdef ROUTING
     //save this route somewhere for future connections to learn from :P
        AllShortRoutes.push_back(ShortestRoute);
