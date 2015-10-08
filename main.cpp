@@ -29,14 +29,14 @@ int InitDataStructure(int gridSize, int tracksPerChannel);
 int getShortestRoute(vector<point>*, int, vector<point>*);
 
 int main(int argc, char** argv) {
-    
+    int number_seg = 0;
     //Parse the input files
     int gridSize, tracksPerChannel;
     std::vector<tracks>track;
     std::vector<vector<point>>  AllShortRoutes;
     vector<int> AllShortWireNums;
     int numConn = doParse(FILENAME, &gridSize, &tracksPerChannel, &track);
-   tracksPerChannel = 6;
+   //tracksPerChannel = 4;
     if (numConn < 1) exit(1);
     
     cout <<"File reading complete"<<endl;
@@ -70,7 +70,7 @@ int main(int argc, char** argv) {
             wb1[SourceWB.i][SourceWB.j].iteration[j] = 0;
             cout<<"doing the route thing"<<endl;
             cout<<tracksPerChannel<<endl;
-            int retval = doPropagate(listOfPotentialWireBlocks, TargetWB, tracksPerChannel, wb1, 1, j);
+            int retval = doPropagate_uni(listOfPotentialWireBlocks, TargetWB, tracksPerChannel, wb1, 1, j);
             if (retval == DEAD_END){cout<<"DEAD_END";continue;}
             for(int a = 0;a< listOfPotentialWireBlocks.size();a++){
             cout<<listOfPotentialWireBlocks[a].i<<listOfPotentialWireBlocks[a].j<<endl;}
@@ -79,7 +79,7 @@ int main(int argc, char** argv) {
             if(retval == MATCH_FOUND){
                 
                 cout<<"match found"<<endl;
-                int Val = doTrace(j, TargetWB, wb1, &possibleRoute[j]);
+                int Val = doTrace_uni(j, TargetWB, wb1, &possibleRoute[j]);
                 if (Val != PATH_MADE){continue;}
                 cout<<"Wire:"<<j<<endl;
                 if(MinSize > possibleRoute[j].size()){
@@ -102,6 +102,7 @@ int main(int argc, char** argv) {
        for(int a =0;a<MinSize; a++){
            wb1[ShortestRoute[a].i][ShortestRoute[a].j].wireTaken[Minsize_wireNumber] = true;
            cout<<ShortestRoute[a].i<<"::"<<ShortestRoute[a].j<<endl;
+           number_seg = number_seg+1;
        }
        
        //refresh the entire wire-grid 
@@ -136,9 +137,9 @@ int main(int argc, char** argv) {
     
     
     }     
-        
+     cout<<"segments used"<<number_seg; 
      DrawNow(wireBlockGridSize, tracksPerChannel, AllShortWireNums, AllShortRoutes);    
-    
+     
     return 0;
 }
 
