@@ -74,13 +74,19 @@ int main(int argc, char** argv) {
     int Minsize_wireNumber = -1;
     vector<point> ShortestRoute;
     int seg_count = 0;
+    vector<point> SWB;
+    vector<point> TWB;
+    vector<int> Spin;
+    vector<int> Tpin;
     //now to route
     //for each connection, in the file do:
-    for (int i = 0; i < numConn; i++) {
+    for (int i = 0; i < 3; i++) {
         //1. figure out which wireblock we are connected to
         
         point SourceWB = getCurrentWireBlock(track[i].From, track[i].pin_From);
         point TargetWB = getCurrentWireBlock(track[i].To, track[i].pin_To);
+        
+        
         
         cout<<"Source block : "<<SourceWB.i<<"::"<<SourceWB.j<<endl;
         cout<<"Target block : "<<TargetWB.i<<"::"<<TargetWB.j<<endl;
@@ -151,6 +157,11 @@ int main(int argc, char** argv) {
     //save this route somewhere for future connections to learn from :P
        AllShortRoutes.push_back(ShortestRoute);
        AllShortWireNums.push_back(Minsize_wireNumber);
+       SWB.push_back(SourceWB);
+		TWB.push_back(TargetWB);
+		Spin.push_back(track[i].pin_From);
+		Tpin.push_back(track[i].pin_To);
+        
     //DrawNow(wireBlockGridSize, tracksPerChannel, Minsize_wireNumber, ShortestRoute);    
     #endif
 
@@ -165,7 +176,7 @@ int main(int argc, char** argv) {
     
     }     
     cout<<"segments used ="<<seg_count;
-     DrawNow(wireBlockGridSize, tracksPerChannel, AllShortWireNums, AllShortRoutes);    
+    DrawNow(wireBlockGridSize, tracksPerChannel, AllShortWireNums, AllShortRoutes, Spin, Tpin, 0, SWB, TWB);
     
     return 0;
 }
