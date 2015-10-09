@@ -28,10 +28,13 @@
         <runcommandpicklist>
           <runcommandpicklistitem>"${OUTPUT_PATH}"</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" -b ~/Downloads</runcommandpicklistitem>
-          <runcommandpicklistitem>"${OUTPUT_PATH}" -b /home/parul/Downloads/cct1.txt</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" -b /home/parul/Downloads/cct2.txt</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -b /home/parul/Downloads/cct3.txt</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -b /home/parul/Downloads/cct4.txt</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -b /home/parul/Downloads/cct1.txt</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -u /home/parul/Downloads/cct1.txt</runcommandpicklistitem>
         </runcommandpicklist>
-        <runcommand>"${OUTPUT_PATH}" -b /home/parul/Downloads/cct2.txt</runcommand>
+        <runcommand>"${OUTPUT_PATH}" -u /home/parul/Downloads/cct1.txt</runcommand>
         <rundir></rundir>
         <buildfirst>true</buildfirst>
         <terminal-type>0</terminal-type>

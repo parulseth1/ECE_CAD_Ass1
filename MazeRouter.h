@@ -51,6 +51,13 @@ struct wireBlock {
     int* iteration;
 };
 
+struct wbpoint{
+    int i;
+    int j;
+    int wirenumber;
+};
+
+
 extern wireBlock** wb1;
 
 int DrawNow(int, int, vector<int>, vector<vector<point>>);
@@ -58,6 +65,9 @@ point getCurrentWireBlock(point LB, int pin);
 int doPropagate(vector<point> , point, int , wireBlock**, int, int);
 int doTrace(int, point, wireBlock**,vector<point>*);
 point makePoint(int i, int j);
+int doTrace_uni(wbpoint, wbpoint, wireBlock**, vector<wbpoint>*, int);
+int doPropagate_uni(vector<wbpoint>, wbpoint, int, wireBlock** , int, int*, int);
+wbpoint makeWBPoint(int, int, int);
 
 #endif	/* MAZEROUTER_H */
 
