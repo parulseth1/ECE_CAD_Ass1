@@ -174,6 +174,10 @@ int main(int argc, char** argv) {
             //save this route somewhere for future connections to learn from :P
             AllShortRoutes.push_back(ShortestRoute);
             AllShortWireNums.push_back(Minsize_wireNumber);
+            SWB.push_back(SourceWB);
+            TWB.push_back(TargetWB);
+            Spin.push_back(track[i].pin_From);
+            Tpin.push_back(track[i].pin_To);
             //DrawNow(wireBlockGridSize, tracksPerChannel, Minsize_wireNumber, ShortestRoute);    
 #endif
 
@@ -216,12 +220,12 @@ int main(int argc, char** argv) {
                 }
                    
 
-//                if (MinSize >  possibleRoute_uni[j].size()) {
-//                    MinSize = possibleRoute_uni[j].size();
-//                    Minsize_wireNumber = j;
-//                    ShortestRoute_uni = possibleRoute_uni[j]; -- possible segfault
-//                    
-//                }
+                if (MinSize >  possibleRoute_uni[j].size()) {
+                    MinSize = possibleRoute_uni[j].size();
+                    Minsize_wireNumber = j;
+                    ShortestRoute_uni = possibleRoute_uni[j]; 
+                    
+                }
                 
                 cout << "pR size:" << possibleRoute_uni[j].size() << endl;
                 for (int x = 0; x < possibleRoute_uni[j].size(); x++) {
@@ -270,6 +274,10 @@ for (int i1 = 0; i1 < wireBlockGridSize; i1++) {
             
             AllShortRoutes.push_back(ShortestRoute);
             AllShortWireNums.push_back(Minsize_wireNumber);
+            SWB.push_back(SourceWB);
+            TWB.push_back(TargetWB);
+            Spin.push_back(track[i].pin_From);
+            Tpin.push_back(track[i].pin_To);
             //DrawNow(wireBlockGridSize, tracksPerChannel, Minsize_wireNumber, ShortestRoute);    
 #endif
 
