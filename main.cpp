@@ -196,6 +196,7 @@ int main(int argc, char** argv) {
     
     if(caseDirection == 1){
         for (int j = 0; j < tracksPerChannel; j++) { 
+            cout<<"channelNumber"<<j<<endl;
             //for(int n = 0; n<2; n++){
             SourceWB_uni.wirenumber = j;
             vector<wbpoint> listOfPotWB;
@@ -234,7 +235,20 @@ int main(int argc, char** argv) {
 
 
                 }
+for (int i1 = 0; i1 < wireBlockGridSize; i1++) {
+                for (int j1 = 0; j1 < wireBlockGridSize; j1++) {
+                    for (int x1 = 0; x1 < tracksPerChannel; x1++) {
+                        if (i1 % 2 != j1 % 2) {
+                            if (wb1[i1][j1].wireTaken[x1] == false) {
+                                wb1[i1][j1].iteration[x1] = -1;
+                            }
+                        }
 
+                    }
+
+                }
+                }
+          
         }
             
             //       
@@ -252,20 +266,7 @@ int main(int argc, char** argv) {
                 ShortestRoute.push_back(A);
             }
         
-for (int i1 = 0; i1 < wireBlockGridSize; i1++) {
-                for (int j1 = 0; j1 < wireBlockGridSize; j1++) {
-                    for (int x1 = 0; x1 < tracksPerChannel; x1++) {
-                        if (i1 % 2 != j1 % 2) {
-                            if (wb1[i1][j1].wireTaken[x1] == false) {
-                                wb1[i1][j1].iteration[x1] = -1;
-                            }
-                        }
 
-                    }
-
-                }
-                }
-          
             
             
            

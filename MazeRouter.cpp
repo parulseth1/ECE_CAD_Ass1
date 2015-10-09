@@ -515,7 +515,7 @@ int doTrace(int track, point Target, wireBlock** wb1, vector<point>* possibleRou
 
 
 
-wbpoint getListOfPotentialWireBlocks_uni(wbpoint, wireBlock**, vector<wbpoint>*, int, wbpoint, int*, int);
+wbpoint getListOfPotentialWireBlocks_uni(wbpoint, wireBlock**, vector<wbpoint>*, int, wbpoint, int*, int, wbpoint*);
 
 int doPropagate_uni(vector<wbpoint> list, wbpoint Target, int tracksPerChannel, wireBlock** wb, int iteration, int* wireIndex, int j) {
 
@@ -524,14 +524,14 @@ int doPropagate_uni(vector<wbpoint> list, wbpoint Target, int tracksPerChannel, 
     int returnStatus = 0;
     vector<wbpoint> potentialList;
     //point retVal;
-    //wbpoint H = Target;
+    wbpoint H;
 
     for (int i = 0; i < list.size(); i++) {
         //for (int j = 0; j < tracksPerChannel; j++){
         //if (wb1[list[i].i][list[i].j].wireTaken[j] == false){
         //means this wire isnt taken, stuff can we be done with it.
         //now to get list of potential wire blocks that we can connect to
-        wbpoint retVal = getListOfPotentialWireBlocks_uni(list[i], wb, &potentialList, iteration, Target, wireIndex,j);
+        wbpoint retVal = getListOfPotentialWireBlocks_uni(list[i], wb, &potentialList, iteration, Target, wireIndex,j,&H);
         //wbpoint retVal = getListOfPotentialWireBlocks_uni(list[i], wb, wireIndex, &potentialList, iteration, Target);
         cout << "propagation #" << i << " done" << endl;
         if (retVal.i == -1 && retVal.j == -1 && retVal.wirenumber == -1) {
@@ -570,7 +570,8 @@ int doPropagate_uni(vector<wbpoint> list, wbpoint Target, int tracksPerChannel, 
 
 
 
-wbpoint getListOfPotentialWireBlocks_uni(wbpoint WB, wireBlock** wb1, vector<wbpoint>* returnList, int iteration, wbpoint Target,int* wireIndex, int WireIndex) {
+wbpoint getListOfPotentialWireBlocks_uni(wbpoint WB, wireBlock** wb1, vector<wbpoint>* returnList, int iteration, wbpoint Target,int* wireIndex, int WireIndex, wbpoint* returnvalue) {
+    
     wbpoint retPoint = makeWBPoint(-1, -1, -1);
     /// we take WB.wirenumbers from 0 to 2L/2, and consider all the WB.wirenumbers to be paired up...
     wbpoint considerBox;
@@ -802,7 +803,7 @@ wbpoint getListOfPotentialWireBlocks_uni(wbpoint WB, wireBlock** wb1, vector<wbp
                     }
                 }
             }
-        
+        }
 
         //just before returning, we msut check if any of the potential lists match the target if they do we return that instead of -1, -1
         // i dont know thw replacemnet for this part!!
@@ -825,9 +826,9 @@ wbpoint getListOfPotentialWireBlocks_uni(wbpoint WB, wireBlock** wb1, vector<wbp
 //            retPoint.j =4;
 //            retPoint.wirenumber =1;
             
-
+            *returnvalue = retPoint;
         return retPoint;
-    }
+    
 }
 
 
