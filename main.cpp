@@ -80,7 +80,7 @@ int main(int argc, char** argv) {
     vector<int> Tpin;
     //now to route
     //for each connection, in the file do:
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < numConn; i++) {
         //1. figure out which wireblock we are connected to
         
         point SourceWB = getCurrentWireBlock(track[i].From, track[i].pin_From);
