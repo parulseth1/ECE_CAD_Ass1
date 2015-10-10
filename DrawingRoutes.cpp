@@ -5,6 +5,10 @@
 #include <stdlib.h>
 #include <cfloat>
 
+int Red[] = {159, 56, 119, 115, 220, 63, 147, 42};
+int Green[] = {156, 126, 125, 108, 120, 196, 129, 42};
+int Blue[] = {114, 147, 26, 208, 141, 46, 76, 50};
+
 using namespace std;
 
 int gridSize = 0;
@@ -152,9 +156,11 @@ void drawscreen(){
         //a:
         setlinewidth (2);
         for (int s = 0; s < route.size(); s++){
-            int r = 25 + rand()%200;
-            int g = 25 + rand()%200;
-            int b = 25 + rand()%200;
+            
+            int r = Red[s%8];
+            int g = Green[s%8];
+            int b = Blue[s%8];
+            
             //if (r == 0 && g == 0 && b == 0){goto a;}
             setcolor (r, g, b);
             for (int r = 0; r < route[s].size(); r++){
@@ -285,9 +291,9 @@ void drawscreen_uni(){
         //a:
         setlinewidth (2);
         for (int s = 0; s < route_uni.size(); s++){
-            int r = 25 + rand()%200;
-            int g = 25 + rand()%200;
-            int b = 25 + rand()%200;
+            int r = Red[s%8];
+            int g = Green[s%8];
+            int b = Blue[s%8];
             //if (r == 0 && g == 0 && b == 0){goto a;}
             setcolor (r, g, b);
             for (int r = 0; r < route_uni[s].size(); r++){
