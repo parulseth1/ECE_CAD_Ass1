@@ -192,89 +192,93 @@ int main(int argc, char** argv) {
 
         }
 
-    
-    
-    if(caseDirection == 1){
-        for (int j = 0; j < tracksPerChannel; j++) { 
-            cout<<"channelNumber"<<j<<endl;
-            //for(int n = 0; n<2; n++){
-            SourceWB_uni.wirenumber = j;
-            vector<wbpoint> listOfPotWB;
-            wb1[SourceWB_uni.i][SourceWB_uni.j].iteration[j] = 0;
-            listOfPotWB.push_back(SourceWB_uni);
-            cout << "doing the route thing" << endl;
-            cout << j << endl;
-            int* wireIndex;
-            int retval = doPropagate_uni(listOfPotWB, TargetWB_uni, tracksPerChannel, wb1, 1, wireIndex,j);
-            if (retval == DEAD_END) {
-                cout << "DEAD_END";
-                continue;
-            }
-            cout << "going to check match found" << endl;
-            if (retval == MATCH_FOUND) {
-                cout << "match found" << endl;
-                int Val = doTrace_uni(SourceWB_uni, TargetWB_uni, wb1, &possibleRoute_uni[j],*wireIndex);  
-                
-                if (Val != PATH_MADE) {
-                    cout << "doTrace didnt work" << endl;
+
+
+        if (caseDirection == 1) {
+            for (int j = 0; j < tracksPerChannel; j++) {
+                cout << "channelNumber" << j << endl;
+                //for(int n = 0; n<2; n++){
+                SourceWB_uni.wirenumber = j;
+                vector<wbpoint> listOfPotWB;
+                wb1[SourceWB_uni.i][SourceWB_uni.j].iteration[j] = 0;
+                listOfPotWB.push_back(SourceWB_uni);
+                cout << "doing the route thing" << endl;
+                cout << j << endl;
+                int* wireIndex = new int;
+                int retval = doPropagate_uni(listOfPotWB, TargetWB_uni, tracksPerChannel, wb1, 1, wireIndex, j);
+                if (retval == DEAD_END) {
+                    cout << "DEAD_END";
                     continue;
                 }
-                   
+                cout << "going to check match found" << endl;
+                if (retval == MATCH_FOUND) {
+                    cout << "match found" << endl;
+                    int Val = doTrace_uni(SourceWB_uni, TargetWB_uni, wb1, &possibleRoute_uni[j], *wireIndex);
 
-                if (MinSize >  possibleRoute_uni[j].size()) {
-                    MinSize = possibleRoute_uni[j].size();
-                    Minsize_wireNumber = j;
-                    ShortestRoute_uni = possibleRoute_uni[j]; 
-                    
-                }
-                
-                cout << "pR size:" << possibleRoute_uni[j].size() << endl;
-                for (int x = 0; x < possibleRoute_uni[j].size(); x++) {
-                    cout << possibleRoute_uni[j][x].i << "::" << possibleRoute_uni[j][x].j << endl;
-                }
+                    if (Val != PATH_MADE) {
+                        cout << "doTrace didnt work" << endl;
+                        continue;
+                    }
 
 
-                }
-for (int i1 = 0; i1 < wireBlockGridSize; i1++) {
-                for (int j1 = 0; j1 < wireBlockGridSize; j1++) {
-                    for (int x1 = 0; x1 < tracksPerChannel; x1++) {
-                        if (i1 % 2 != j1 % 2) {
-                            if (wb1[i1][j1].wireTaken[x1] == false) {
-                                wb1[i1][j1].iteration[x1] = -1;
-                            }
-                        }
+                    if (MinSize > possibleRoute_uni[j].size()) {
+                        MinSize = possibleRoute_uni[j].size();
+                        Minsize_wireNumber = j;
+                        ShortestRoute_uni = possibleRoute_uni[j];
 
                     }
 
+                    cout << "pR size:" << possibleRoute_uni[j].size() << endl;
+                    for (int x = 0; x < possibleRoute_uni[j].size(); x++) {
+                        cout << possibleRoute_uni[j][x].i << "::" << possibleRoute_uni[j][x].j << endl;
+                    }
+
+
                 }
+                for (int i1 = 0; i1 < wireBlockGridSize; i1++) {
+                    for (int j1 = 0; j1 < wireBlockGridSize; j1++) {
+                        for (int x1 = 0; x1 < tracksPerChannel; x1++) {
+                            if (i1 % 2 != j1 % 2) {
+                                if (wb1[i1][j1].wireTaken[x1] == false) {
+                                    wb1[i1][j1].iteration[x1] = -1;
+                                }
+                            }
+
+                        }
+
+                    }
                 }
-          
-        }
-            
+
+            }
+
             //       
             cout << "shortestRoute on wire " << Minsize_wireNumber << ":" << endl;
             cout << MinSize << endl;
             if (Minsize_wireNumber < 0) {
                 continue;
             }
-        
+            
+            if (MinSize > gridSize*gridSize){
+                continue;
+            }
+
             for (int a = 0; a < MinSize; a++) {
                 wb1[ShortestRoute_uni[a].i][ShortestRoute_uni[a].j].wireTaken[Minsize_wireNumber] = true;
                 cout << ShortestRoute_uni[a].i << "::" << ShortestRoute_uni[a].j << endl;
                 seg_count = seg_count + 1;
-                point A= makePoint(ShortestRoute_uni[a].i ,ShortestRoute_uni[a].j);
+                point A = makePoint(ShortestRoute_uni[a].i, ShortestRoute_uni[a].j);
                 ShortestRoute.push_back(A);
             }
-        
 
-            
-            
-           
+
+
+
+
 #ifdef ROUTING
             //save this route somewhere for future connections to learn from :P
-            
-            AllShortRoutes.push_back(ShortestRoute);
-            AllShortWireNums.push_back(Minsize_wireNumber);
+
+            AllShortRoutes_uni.push_back(ShortestRoute_uni);
+            AllShortWireNums_uni.push_back(Minsize_wireNumber);
             SWB.push_back(SourceWB);
             TWB.push_back(TargetWB);
             Spin.push_back(track[i].pin_From);
@@ -293,16 +297,15 @@ for (int i1 = 0; i1 < wireBlockGridSize; i1++) {
 
         }
     }
-    
 
-    
+
+
     cout << "segments used =" << seg_count;
-        //cout << "Num Connection = " << numConn;
-	DrawNow(wireBlockGridSize, tracksPerChannel, AllShortWireNums, AllShortRoutes, Spin, Tpin, 0, SWB, TWB);
+    //cout << "Num Connection = " << numConn;
+    //DrawNow(wireBlockGridSize, tracksPerChannel, AllShortWireNums_uni, AllShortRoutes_uni, Spin, Tpin, 0, SWB, TWB);
 
-        return 0;
-    }
-
+    return 0;
+}
 
 int InitDataStructure(int gridSize, int tracksPerChannel) {
 
