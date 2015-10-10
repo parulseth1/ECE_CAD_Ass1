@@ -81,7 +81,7 @@ int main(int argc, char** argv) {
     vector<int> Tpin;
     //now to route
     //for each connection, in the file do:
-    for (int i = 0; i < numConn; i++) {
+    for (int i = 0; i < 1; i++) {
         //1. figure out which wireblock we are connected to
 
         point SourceWB = getCurrentWireBlock(track[i].From, track[i].pin_From);
@@ -302,7 +302,12 @@ int main(int argc, char** argv) {
 
     cout << "segments used =" << seg_count;
     //cout << "Num Connection = " << numConn;
-    //DrawNow(wireBlockGridSize, tracksPerChannel, AllShortWireNums_uni, AllShortRoutes_uni, Spin, Tpin, 0, SWB, TWB);
+    if (caseDirection == 2){
+        DrawNow(wireBlockGridSize, tracksPerChannel, AllShortWireNums, AllShortRoutes, Spin, Tpin, 0, SWB, TWB);
+    }
+    if (caseDirection == 1){
+        DrawNow_uni(wireBlockGridSize, tracksPerChannel, AllShortRoutes_uni, Spin, Tpin, 0, SWB, TWB);
+    }
 
     return 0;
 }

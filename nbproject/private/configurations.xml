@@ -34,10 +34,10 @@
           <runcommandpicklistitem>"${OUTPUT_PATH}" -u /home/parul/Downloads/cct2.txt</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" -u /home/al/Downloads/cct1.txt</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" -u /home/aliakbar/Downloads/cct1.txt</runcommandpicklistitem>
-          <runcommandpicklistitem>"${OUTPUT_PATH}" -u /home/eski/Downloads/cct1.txt</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" -u /home/parul/Downloads/cct1.txt</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -u /home/eski/Downloads/cct1.txt</runcommandpicklistitem>
         </runcommandpicklist>
-        <runcommand>"${OUTPUT_PATH}" -u /home/parul/Downloads/cct1.txt</runcommand>
+        <runcommand>"${OUTPUT_PATH}" -u /home/eski/Downloads/cct1.txt</runcommand>
         <rundir></rundir>
         <buildfirst>true</buildfirst>
         <terminal-type>0</terminal-type>
