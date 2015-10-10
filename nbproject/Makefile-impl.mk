@@ -24,7 +24,7 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 
 
 # Project Name
-PROJECTNAME=Assignment1
+PROJECTNAME=MazeRouter
 
 # Active Configuration
 DEFAULTCONF=Debug

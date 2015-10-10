@@ -939,7 +939,7 @@ int doTrace_uni(wbpoint Source, wbpoint Target, wireBlock** wb1, vector<wbpoint>
                     }
                 }
                 //box6
-                considerBox = makeWBPoint(TargetBox.i, TargetBox.j - 2,TargetBox.wirenumber); ///east of the wire box...
+                considerBox = makeWBPoint(TargetBox.i, TargetBox.j + 2,TargetBox.wirenumber); ///east of the wire box...
                 if (considerBox.i >= 0 && considerBox.i < wireBlockGridSize && considerBox.j >= 0 && considerBox.j < wireBlockGridSize) {
                     if (wb1[TargetBox.i][TargetBox.j].iteration[TargetBox.wirenumber] - 1 == wb1[considerBox.i][considerBox.j].iteration[considerBox.wirenumber]) {
                         if (wb1[considerBox.i][considerBox.j].wireTaken[considerBox.wirenumber] == false) {
@@ -1042,7 +1042,7 @@ int doTrace_uni(wbpoint Source, wbpoint Target, wireBlock** wb1, vector<wbpoint>
                     }
                 }
                 //box6
-                considerBox = makeWBPoint(TargetBox.i + 2, TargetBox.j,TargetBox.wirenumber); // for north side of the switch box
+                considerBox = makeWBPoint(TargetBox.i - 2, TargetBox.j,TargetBox.wirenumber); // for north side of the switch box
                 if (considerBox.i >= 0 && considerBox.i < wireBlockGridSize && considerBox.j >= 0 && considerBox.j < wireBlockGridSize) {
                     if (wb1[TargetBox.i][TargetBox.j].iteration[TargetBox.wirenumber] - 1 == wb1[considerBox.i][considerBox.j].iteration[considerBox.wirenumber]) {
                         if (wb1[considerBox.i][considerBox.j].wireTaken[considerBox.wirenumber] == false) {
